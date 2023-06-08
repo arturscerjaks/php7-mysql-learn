@@ -6,6 +6,15 @@ if (isset($_POST['joketext'])) {
             'ijdbuser',
             'mypassword'
         );
+        $sql = 'INSERT INTO `joke` SET
+        `joketext` = :joketext,
+        `jokedate` = CURDATE()';
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':joketext', $_POST['joketext']);
+
+        $stmt->execute();
+        header('location: jokes.php');
     } catch (PDOException $e) {
         $title = 'An error has occurred';
         $output = 'Database error: ' . $e->getMessage() . ' in ' .
