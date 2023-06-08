@@ -1,16 +1,30 @@
-<!DOCTYPE html>
-<html>
+<?php
+try {
+    $pdo = new PDO('mysql:host=mysql;dbname=ijdb;charset=utf8mb4', 'ijdbuser', 'mypassword');
 
-<head>
-    <title>v.je server is running</title>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="vje.css" />
-</head>
+    $sql = 'SELECT `joketext` FROM `joke`';
+    $result = $pdo->query($sql);
 
-<body>
-    <?php
-        include __DIR__ . '/../includes/DatabaseConnection.php';
-    ?>
-</body>
+    while ($row = $result->fetch()) {
+        $jokes[] = $row['joketext'];
+    }
 
-</html>
+    $title = 'Joke list';
+
+    $output = '';
+
+    foreach ($jokes as $joke) {
+        $output .= '<blockquote>';
+        $output .= '<p>';
+        $output .= $joke;
+        $output .= '</p>';
+        $output .= '</blockquote>';
+    }
+} catch (PDOException $e) {
+    $title = 'An error has occurred';
+
+    $output = 'Database error: ' . $e->getMessage() . ' in ' .
+  $e->getFile() . ':' . $e->getLine();
+}
+
+include  __DIR__ . '/../templates/layout.html.php';
