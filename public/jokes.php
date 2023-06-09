@@ -6,7 +6,9 @@ try {
     'mypassword'
   );
 
-  $sql = 'SELECT `joketext`, `id` FROM joke';
+  $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`
+  FROM `joke` INNER JOIN `author`
+  ON `joke`.`authorid` = `author`.`id`');
   $jokes = $pdo->query($sql);
   $title = 'Joke list';
 
@@ -16,7 +18,7 @@ try {
 
 } catch (PDOException $e) {
   $title = 'An error has occurred';
-  
+
   $output = 'Database error: ' . $e->getMessage() . ' in ' .
     $e->getFile() . ':' . $e->getLine();
 }
