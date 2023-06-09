@@ -94,15 +94,14 @@ form {
 }
 
 blockquote {
-  display: table;
-  margin-bottom: 1em;
-  border-bottom: 1px solid #ccc;
-  padding: 0.5em;
+  margin: 0;
 }
+
 blockquote p {
-  display: table-cell;
-  width: 90%;
-  vertical-align: top;
+  padding: 15px;
+  background: #eee;
+  border-radius: 5px;
+  border-bottom: 2px solid black;
 }
 blockquote form {
   display: table-cell;
