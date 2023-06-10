@@ -1,11 +1,7 @@
 <?php
 if (isset($_POST['joketext'])) {
     try {
-        $pdo = new PDO(
-            'mysql:host=mysql;dbname=ijdb;charset=utf8mb4',
-            'ijdbuser',
-            'mypassword'
-        );
+        include '../includes/DatabaseConnection.php';
         $sql = 'INSERT INTO `joke` SET
         `joketext` = :joketext,
         `jokedate` = CURDATE()';

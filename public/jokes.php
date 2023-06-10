@@ -1,10 +1,6 @@
 <?php
 try {
-  $pdo = new PDO(
-    'mysql:host=mysql;dbname=ijdb;charset=utf8mb4',
-    'ijdbuser',
-    'mypassword'
-  );
+  include '../includes/DatabaseConnection.php';
 
   $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`
   FROM `joke` INNER JOIN `author`
