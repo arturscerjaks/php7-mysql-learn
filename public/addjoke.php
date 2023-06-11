@@ -5,10 +5,9 @@ if (isset($_POST['joketext'])) {
         $sql = 'INSERT INTO `joke` SET
         `joketext` = :joketext,
         `jokedate` = CURDATE()';
+
         $stmt = $pdo->prepare($sql);
-
         $stmt->bindValue(':joketext', $_POST['joketext']);
-
         $stmt->execute();
         header('location: jokes.php');
     } catch (PDOException $e) {

@@ -1,10 +1,10 @@
 <?php
 try {
   include '../includes/DatabaseConnection.php';
-
   $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`
   FROM `joke` INNER JOIN `author`
   ON `joke`.`authorid` = `author`.`id`');
+  
   $jokes = $pdo->query($sql);
   $title = 'Joke list';
 

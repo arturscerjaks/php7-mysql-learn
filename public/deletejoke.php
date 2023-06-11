@@ -1,8 +1,8 @@
 <?php
 try {
     include '../includes/DatabaseConnection.php';
-
     $sql = 'DELETE FROM `joke` WHERE `id` = :id';
+
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $_POST['id']);
     $stmt->execute();
