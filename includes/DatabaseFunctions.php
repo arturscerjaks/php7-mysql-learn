@@ -6,3 +6,12 @@ function totalJokes($database)
     $row = $stmt->fetch();
     return $row[0];
 }
+
+function getJoke($pdo, $id) {
+    $stmt = $pdo->prepare('SELECT * FROM `joke` WHERE `id` = :id');
+    $values = [
+    'id' => $id
+    ];
+    $stmt->execute($values);
+    return $stmt->fetch();
+    }
