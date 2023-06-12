@@ -1,12 +1,16 @@
 <?php
 try {
   include '../includes/DatabaseConnection.php';
+  include __DIR__ . '/../includes/DatabaseFunctions.php';
+
   $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`
   FROM `joke` INNER JOIN `author`
   ON `joke`.`authorid` = `author`.`id`');
   
   $jokes = $pdo->query($sql);
+  
   $title = 'Joke list';
+  $totalJokes = totalJokes($pdo);
 
   ob_start();
   include __DIR__ . '/../templates/jokes.html.php';
