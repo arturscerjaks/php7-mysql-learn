@@ -1,6 +1,6 @@
 <?php
 try {
-  include '../includes/DatabaseConnection.php';
+  include __DIR__ . '/../includes/DatabaseConnection.php';
   include __DIR__ . '/../includes/DatabaseFunctions.php';
 
   $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`

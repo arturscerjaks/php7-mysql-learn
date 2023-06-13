@@ -1,8 +1,8 @@
 <?php
 
 try {
-    include '../includes/DatabaseConnection.php';
-    include '../includesDatabaseFunctions.php';
+    include __DIR__ . '/../includes/DatabaseConnection.php';
+    include __DIR__ . '/../includesDatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
         updateJoke($pdo, $_POST['jokeid'], $_POST['joketext'], 1);
@@ -12,7 +12,7 @@ try {
         $title = 'Edit joke';
 
         ob_start();
-        include '../templates/editjoke.html.php';
+        include __DIR__ . '/../templates/editjoke.html.php';
         $output = ob_get_clean();
     }
 } catch (PDOException $e) {

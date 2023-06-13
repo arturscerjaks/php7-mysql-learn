@@ -1,6 +1,6 @@
 <?php
 try {
-    include '../includes/DatabaseConnection.php';
+    include __DIR__ . '/../includes/DatabaseConnection.php';
     $sql = 'DELETE FROM `joke` WHERE `id` = :id';
 
     $stmt = $pdo->prepare($sql);

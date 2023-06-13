@@ -1,11 +1,11 @@
 <?php
 if (isset($_POST['joketext'])) {
     try {
-        include '../includes/DatabaseConnection.php';
-        include '../includes/DatabaseFunctions.php';
+        include __DIR__ . '/../includes/DatabaseConnection.php';
+        include __DIR__ . '/../includes/DatabaseFunctions.php';
 
         insertJoke($pdo, $_POST['joketext'], 1);
-        
+
         header('location: jokes.php');
     } catch (PDOException $e) {
         $title = 'An error has occurred';
