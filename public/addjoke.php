@@ -2,13 +2,10 @@
 if (isset($_POST['joketext'])) {
     try {
         include '../includes/DatabaseConnection.php';
-        $sql = 'INSERT INTO `joke` SET
-        `joketext` = :joketext,
-        `jokedate` = CURDATE()';
+        include '../includes/DatabaseFunctions.php';
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':joketext', $_POST['joketext']);
-        $stmt->execute();
+        insertJoke($pdo, $_POST['joketext'], 1);
+        
         header('location: jokes.php');
     } catch (PDOException $e) {
         $title = 'An error has occurred';
