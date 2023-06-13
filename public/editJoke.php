@@ -20,3 +20,5 @@ try {
     $output = 'Database error: ' . $e->getMessage() . ' in ' .
         $e->getFile() . ':' . $e->getLine();
 };
+
+include __DIR__ . '/../templates/layout.html.php';
