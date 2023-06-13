@@ -1,14 +1,11 @@
 <?php
 try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    $sql = 'DELETE FROM `joke` WHERE `id` = :id';
+    include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_POST['id']);
-    $stmt->execute();
+    deleteJoke($pdo, $_POST['id']);
 
     header('location: jokes.php');
-
 } catch (PDOException $e) {
     $title = 'An error has occurred';
     $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' .
