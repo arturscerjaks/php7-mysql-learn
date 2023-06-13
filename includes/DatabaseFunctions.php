@@ -60,5 +60,7 @@ function allJokes($pdo)
         INNER JOIN `author` ON `authorid` = `author`.`id`'
     );
 
+    $stmt->execute();
+
     return $stmt->fetchAll();
 }
