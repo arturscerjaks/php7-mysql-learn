@@ -3,13 +3,10 @@ try {
   include __DIR__ . '/../includes/DatabaseConnection.php';
   include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-  $sql = ('SELECT `joketext`, `joke`.`id`, `name`, `email`
-  FROM `joke` INNER JOIN `author`
-  ON `joke`.`authorid` = `author`.`id`');
-  
-  $jokes = $pdo->query($sql);
+  $jokes = allJokes($pdo);
   
   $title = 'Joke list';
+  
   $totalJokes = totalJokes($pdo);
 
   ob_start();
