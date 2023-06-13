@@ -2,7 +2,7 @@
 
 try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    include __DIR__ . '/../includesDatabaseFunctions.php';
+    include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
         updateJoke($pdo, $_POST['jokeid'], $_POST['joketext'], 1);
