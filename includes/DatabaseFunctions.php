@@ -31,15 +31,20 @@ function insertJoke($pdo, $joketext, $authorId)
     $stmt->execute($values);
 }
 
-function updateJoke($pdo, $jokeId, $joketext, $authorId)
+function updateJoke($pdo, $values)
 {
-    $stmt = $pdo->prepare('UPDATE `joke` SET `authorId` = :authorId, `joketext` = :joketext WHERE `id` = :id');
-    $values = [
-        ':joketext' => $joketext,
-        ':authorId' => $authorId,
-        ':id' => $jokeId
-    ];
+    $query = ' UPDATE `joke` SET ';
+    $updateFields = [];
+    foreach ($values as $key => $value) {
+        $updateFields[] = '`' . $key . '` = :' . $key;
+    }
+    
+    $query .= implode(', ', $updateFields);
+    $query .= ' WHERE `id` = :primaryKey';
+    // Set the :primaryKey variable
+    $values['primaryKey'] = $values['id'];
 
+    $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
 
