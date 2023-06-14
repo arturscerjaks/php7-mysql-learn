@@ -36,6 +36,9 @@ function getJoke($pdo, $id): array
 }
 
 /**
+ * Inserts a joke into the database. 
+ * 
+ * 
  * @param pdo $pdo
  * @param array $values
  * $values:
