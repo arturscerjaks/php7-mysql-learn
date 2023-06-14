@@ -37,21 +37,34 @@ function getJoke($pdo, $id): array
 
 /**
  * @param pdo $pdo
- * @param string $joketext
- * @param int $authorId
+ * @param mixed[] $values
+ * $values:
+ *  [
+ *      `joketext => string`,
+ *      `jokedate => DateTime`,
+ *      `authorId => int`
+ *  ]
  */
 
-function insertJoke($pdo, $joketext, $authorId): void
+function insertJoke($pdo, $values): void
 {
-    $stmt = $pdo->prepare('INSERT INTO `joke` (`joketext`, `jokedate`, `authorid`)
-    VALUES (:joketext, :jokedate, :authorId)');
+    $query = 'INSERT INTO `joke` (';
 
-    $values = [
-        ':joketext' => $joketext,
-        ':authorId' => $authorId,
-        ':jokedate' => date('Y-m-d')
-    ];
+    foreach ($values as $key => $value) {
+        $insertFields[] = '`' . $key . '`';
+    }
 
+    $query = rtrim($query, ',');
+    $query .= ') VALUES (';
+
+    foreach ($values as $key => $value) {
+        $query .= ':' . $key . ',';
+    }
+
+    $query = rtrim($query, ',');
+    $query .= ')';
+
+    $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
 
