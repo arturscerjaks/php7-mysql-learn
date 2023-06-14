@@ -37,7 +37,7 @@ function getJoke($pdo, $id): array
 
 /**
  * @param pdo $pdo
- * @param mixed[] $values
+ * @param array $values
  * $values:
  *  [
  *      `joketext => string`,
