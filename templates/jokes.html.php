@@ -13,7 +13,7 @@
                                             $joke['name'],
                                             ENT_QUOTES,
                                             'UTF-8'
-                                        ); ?></a>)
+                                        ); ?></a> on <?=$joke['jokedate']; ?>)
             <a href="editjoke.php?id=<?= $joke['id'] ?>">Edit</a>
         </p>
         <form action="deletejoke.php" method="post">
