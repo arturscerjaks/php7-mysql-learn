@@ -66,11 +66,7 @@ function insertJoke($pdo, $values)
     $query = rtrim($query, ',');
     $query .= ')';
 
-    foreach ($values as $key => $value) {
-        if ($value instanceof DateTime) {
-            $values[$key] = $value->format('Y-m-d');
-        }
-    }
+    $values = processDates($values);
 
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
@@ -90,15 +86,11 @@ function updateJoke($pdo, $values): void
     $query = rtrim($query, ',');
     $query .= ' WHERE id = :primarykey';
 
-    foreach ($values as $key => $value) {
-        if ($value instanceof DateTime) {
-            $values[$key] = $value->format('Y-m-d H:i:s');
-        }
-    }
+    $values = processDates($values);
 
     // Set the :primaryKey variable
     $values['primaryKey'] = $values['id'];
-    
+
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
@@ -140,4 +132,17 @@ function allJokes($pdo): array
     $stmt->execute();
 
     return $stmt->fetchAll();
+}
+/**
+ * @param mixed[] $values
+ */
+
+function processDates($values): array
+{
+    foreach ($values as $key => $value) {
+        if ($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d H:i:s');
+        }
+    }
+    return $values;
 }
