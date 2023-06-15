@@ -4,9 +4,11 @@ if (isset($_POST['joketext'])) {
         include __DIR__ . '/../includes/DatabaseConnection.php';
         include __DIR__ . '/../includes/DatabaseFunctions.php';
 
+        $date = new DateTime();
+
         insertJoke($pdo, [
             'joketext' =>  $_POST['joketext'],
-            'jokedate' => date('Y-m-d'),
+            'jokedate' => $date->format('Y-m-d H:i:s'),
             'authorId' => 1
         ]);
 

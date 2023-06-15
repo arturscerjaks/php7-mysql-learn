@@ -49,24 +49,19 @@ function getJoke($pdo, $id): array
  *  ]
  */
 
-function insertJoke($pdo, $values): void
+function insertJoke($pdo, $values)
 {
     $query = 'INSERT INTO `joke` (';
-
     foreach ($values as $key => $value) {
-        $insertFields[] = '`' . $key . '`';
+        $query .= '`' . $key . '`,';
     }
-
     $query = rtrim($query, ',');
     $query .= ') VALUES (';
-
     foreach ($values as $key => $value) {
         $query .= ':' . $key . ',';
     }
-
     $query = rtrim($query, ',');
     $query .= ')';
-
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
