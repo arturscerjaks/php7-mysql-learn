@@ -71,7 +71,7 @@ function insertJoke($pdo, $values)
             $values[$key] = $value->format('Y-m-d');
         }
     }
-    
+
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
@@ -83,17 +83,22 @@ function insertJoke($pdo, $values)
 
 function updateJoke($pdo, $values): void
 {
-    $query = ' UPDATE `joke` SET ';
-    $updateFields = [];
+    $query = ' UPDATE joke SET ';
     foreach ($values as $key => $value) {
-        $updateFields[] = '`' . $key . '` = :' . $key;
+        $query .= '`' . $key . '` = :' . $key . ',';
+    }
+    $query = rtrim($query, ',');
+    $query .= ' WHERE id = :primarykey';
+
+    foreach ($values as $key => $value) {
+        if ($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d H:i:s');
+        }
     }
 
-    $query .= implode(', ', $updateFields);
-    $query .= ' WHERE `id` = :primaryKey';
     // Set the :primaryKey variable
     $values['primaryKey'] = $values['id'];
-
+    
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
