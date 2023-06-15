@@ -52,16 +52,26 @@ function getJoke($pdo, $id): array
 function insertJoke($pdo, $values)
 {
     $query = 'INSERT INTO `joke` (';
+
     foreach ($values as $key => $value) {
         $query .= '`' . $key . '`,';
     }
     $query = rtrim($query, ',');
+
     $query .= ') VALUES (';
+
     foreach ($values as $key => $value) {
         $query .= ':' . $key . ',';
     }
     $query = rtrim($query, ',');
     $query .= ')';
+
+    foreach ($values as $key => $value) {
+        if ($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d');
+        }
+    }
+    
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
