@@ -42,7 +42,7 @@ function getJoke($pdo, $id): array
 }
 
 /**
- * Inserts a joke into the database. 
+ * Inserts a joke into `joke` table. 
  * 
  * 
  * @param pdo $pdo
