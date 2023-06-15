@@ -1,6 +1,9 @@
 <?php
 
 /**
+ * Counts amount of rows in `joke` table
+ * 
+ * 
  * @param pdo $pdo
  */
 
@@ -13,6 +16,9 @@ function totalJokes($pdo): int
 }
 
 /**
+ * Gets a joke's row's values by id from `joke` table 
+ * 
+ * 
  * @param pdo $pdo
  * @param int $id `joke`.`id`
  * @return array
@@ -43,13 +49,13 @@ function getJoke($pdo, $id): array
  * @param array $values
  * $values:
  *  [
- *      `joketext => string`,
- *      `jokedate => DateTime`,
- *      `authorId => int`
+ *      'joketext' => `string`,
+ *      'jokedate' => `DateTime`,
+ *      'authorId' => `int`
  *  ]
  */
 
-function insertJoke($pdo, $values)
+function insertJoke($pdo, $values): void
 {
     $query = 'INSERT INTO `joke` (';
 
@@ -73,6 +79,9 @@ function insertJoke($pdo, $values)
 }
 
 /**
+ * Updates joke from `joke` table
+ * 
+ * 
  * @param pdo $pdo
  * @param mixed[] $values
  */
@@ -96,6 +105,9 @@ function updateJoke($pdo, $values): void
 }
 
 /**
+ * Deletes joke by id from `joke` table
+ * 
+ * 
  * @param pdo $pdo
  * @param int $id
  */
@@ -110,14 +122,17 @@ function deleteJoke($pdo, $id): void
 }
 
 /**
+ * Returns an array of arrays that consists of id, joketext, name and email fields from `joke` table 
+ * 
+ * 
  * @param pdo $pdo
  * @return array
  * Array's structure:
  *  [
- *      `id` => int,
- *      `joketext` => string, 
- *      `name` => string,
- *      `email` => string
+ *      ['id' => `int`,
+ *      'joketext' => `string`, 
+ *      'name' => `string`,
+ *      'email' => `string`]
  *  ]
  */
 
