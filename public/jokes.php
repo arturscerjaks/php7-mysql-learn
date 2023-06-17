@@ -3,7 +3,7 @@ try {
   include __DIR__ . '/../includes/DatabaseConnection.php';
   include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-  $jokes = allJokes($pdo);
+  $jokes = findAll($pdo, 'joke');
   
   $title = 'Joke list';
   
