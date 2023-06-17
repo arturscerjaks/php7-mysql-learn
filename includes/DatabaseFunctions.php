@@ -98,18 +98,20 @@ function updateJoke($pdo, $values): void
 }
 
 /**
- * Deletes joke by id from `joke` table
+ * Deletes row from `$table` where `$field`'s value is `$value`
  * 
  * 
  * @param pdo $pdo
- * @param int $id
+ * @param string $table
+ * @param string $field
+ * @param string|int $value
  */
 
-function deleteJoke($pdo, $id): void
+function delete($pdo, $table, $field, $value): void
 {
-    $stmt = $pdo->prepare('DELETE FROM `joke` WHERE `id` = :id');
+    $values = [':value' => $value];
 
-    $values = [':id' => $id];
+    $stmt = $pdo->prepare('DELETE FROM `' . $table . '` WHERE `' . $field . '` = :value');
 
     $stmt->execute($values);
 }
