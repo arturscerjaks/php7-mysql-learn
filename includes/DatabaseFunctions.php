@@ -72,26 +72,31 @@ function insert($pdo, $table, $values): void
 }
 
 /**
- * Updates joke from `joke` table
+ * Updates `$table` to set `$values` where `$primaryKey` is `$values['id']`
  * 
  * 
  * @param pdo $pdo
- * @param mixed[] $values
+ * @param string $table
+ * @param string $primaryKey
+ * @param array $values
  */
 
-function updateJoke($pdo, $values): void
+function update($pdo, $table, $primaryKey, $values): void
 {
-    $query = ' UPDATE joke SET ';
+    $query = ' UPDATE `' . $table . '` SET ';
+
     foreach ($values as $key => $value) {
         $query .= '`' . $key . '` = :' . $key . ',';
     }
-    $query = rtrim($query, ',');
-    $query .= ' WHERE id = :primarykey';
 
-    $values = processDates($values);
+    $query = rtrim($query, ',');
+
+    $query .= ' WHERE`' . $primaryKey . '` = :primarykey';
 
     // Set the :primaryKey variable
     $values['primaryKey'] = $values['id'];
+
+    $values = processDates($values);
 
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
