@@ -7,7 +7,7 @@ try {
   
   $title = 'Joke list';
   
-  $totalJokes = totalJokes($pdo);
+  $totalJokes = totalRows($pdo, 'joke');
 
   ob_start();
   include __DIR__ . '/../templates/jokes.html.php';
