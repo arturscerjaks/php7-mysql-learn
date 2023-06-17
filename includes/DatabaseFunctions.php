@@ -16,29 +16,27 @@ function totalJokes($pdo): int
 }
 
 /**
- * Gets a joke's row's values by id from `joke` table 
+ * Returns all rows of a `$table` where `$field`'s value is `$value`
  * 
  * 
  * @param pdo $pdo
- * @param int $id `joke`.`id`
- * @return array
- * Array's structure:
- *  [
- *      `id` => int,
- *      `joketext` => string,
- *      `date` => DateTime,
- *      `authorid` => int
- *  ]
+ * @param string $table 
+ * @param string $field
+ * @param string|int $value
+ * @return mixed[]
  */
 
-function getJoke($pdo, $id): array
+function find($pdo, $table, $field, $value): array
 {
-    $stmt = $pdo->prepare('SELECT * FROM `joke` WHERE `id` = :id');
+    $query = 'SELECT * FROM `' . $table . '` WHERE `' . $field . '` = :value';
+    
     $values = [
-        'id' => $id
+        'value' => $value
     ];
+    
+    $stmt = $pdo->prepare($query);
     $stmt->execute($values);
-    return $stmt->fetch();
+    return $stmt->fetchAll();
 }
 
 /**
