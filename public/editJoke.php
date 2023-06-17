@@ -12,7 +12,7 @@ try {
         ]);
         header('location: jokes.php');
     } else {
-        $joke = getJoke($pdo, $_GET['id']);
+        $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
         $title = 'Edit joke';
 
         ob_start();
