@@ -16,7 +16,7 @@ function totalRows($pdo, $table): int
 }
 
 /**
- * Returns all rows of a `$table` where `$field`'s value is `$value` as multidimensional array
+ * Returns all rows of a `$table` where `$field`'s value is `$value` as multidimensional array.
  * 
  * 
  * @param pdo $pdo
@@ -50,7 +50,7 @@ function find($pdo, $table, $field, $value)
 
 function insert($pdo, $table, $values): void
 {
-    $query = 'INSERT INTO `'. $table .'` (';
+    $query = 'INSERT INTO `' . $table . '` (';
 
     foreach ($values as $key => $value) {
         $query .= '`' . $key . '`,';
@@ -115,26 +115,18 @@ function deleteJoke($pdo, $id): void
 }
 
 /**
- * Returns an array of arrays that consists of id, joketext, name and email fields from `joke` table 
+ * Returns all rows of `$table` as a multidimensional array
  * 
  * 
  * @param pdo $pdo
- * @return array
- * Array's structure:
- *  [
- *      ['id' => `int`,
- *      'joketext' => `string`, 
- *      'name' => `string`,
- *      'email' => `string`]
- *  ]
+ * @param string @table
+ * @return array[]
  */
 
-function allJokes($pdo): array
+function findAll($pdo, $table): array
 {
     $stmt = $pdo->prepare(
-        'SELECT `joke`.`id`, `joketext`, `jokedate`, `name`, `email`  
-        FROM `joke` 
-        INNER JOIN `author` ON `authorid` = `author`.`id`'
+        'SELECT *  FROM `' . $table . '`'
     );
 
     $stmt->execute();
