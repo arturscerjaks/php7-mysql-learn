@@ -5,7 +5,7 @@ try {
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
-        updateJoke($pdo, [
+        update($pdo, 'joke', 'id', [
             'id' => $_POST['jokeid'],
             'joketext' => $_POST['joketext'],
             'authorId' => 1
