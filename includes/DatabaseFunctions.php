@@ -16,17 +16,17 @@ function totalJokes($pdo): int
 }
 
 /**
- * Returns all rows of a `$table` where `$field`'s value is `$value`
+ * Returns all rows of a `$table` where `$field`'s value is `$value` as multidimensional array
  * 
  * 
  * @param pdo $pdo
  * @param string $table 
  * @param string $field
  * @param string|int $value
- * @return mixed[]
+ * @return array[]
  */
 
-function find($pdo, $table, $field, $value): array
+function find($pdo, $table, $field, $value)
 {
     $query = 'SELECT * FROM `' . $table . '` WHERE `' . $field . '` = :value';
     
