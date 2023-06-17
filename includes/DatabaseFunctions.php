@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Counts amount of rows in `joke` table
- * 
+ * Counts amount of rows in `$table` 
  * 
  * @param pdo $pdo
+ * @param string $table
  */
 
-function totalJokes($pdo): int
+function totalRows($pdo, $table): int
 {
-    $stmt = $pdo->prepare('SELECT COUNT(*) FROM `joke`');
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM `' . $table . '`');
     $stmt->execute();
     $row = $stmt->fetch();
     return $row[0];
@@ -29,11 +29,11 @@ function totalJokes($pdo): int
 function find($pdo, $table, $field, $value)
 {
     $query = 'SELECT * FROM `' . $table . '` WHERE `' . $field . '` = :value';
-    
+
     $values = [
         'value' => $value
     ];
-    
+
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
     return $stmt->fetchAll();
