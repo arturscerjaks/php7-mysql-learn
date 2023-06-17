@@ -40,22 +40,17 @@ function find($pdo, $table, $field, $value)
 }
 
 /**
- * Inserts a joke into `joke` table. 
+ * Inserts `$values` into `$table` 
  * 
  * 
  * @param pdo $pdo
+ * @param string $table
  * @param array $values
- * $values:
- *  [
- *      'joketext' => `string`,
- *      'jokedate' => `DateTime`,
- *      'authorId' => `int`
- *  ]
  */
 
-function insertJoke($pdo, $values): void
+function insert($pdo, $table, $values): void
 {
-    $query = 'INSERT INTO `joke` (';
+    $query = 'INSERT INTO `'. $table .'` (';
 
     foreach ($values as $key => $value) {
         $query .= '`' . $key . '`,';
