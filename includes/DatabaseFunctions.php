@@ -138,7 +138,11 @@ function findAll($pdo, $table)
     return $stmt->fetchAll();
 }
 /**
- * @param mixed[] $values
+ * Returns modified array where DateTime objects are formatted the same way
+ * 
+ * 
+ * @example e.g., 5th July 2021
+ * @param array $values
  */
 
 function processDates($values): array
@@ -149,4 +153,26 @@ function processDates($values): array
         }
     }
     return $values;
+}
+
+/**
+ * Tries to insert() `$record` into `$table` based on `$primaryKey`, will update() instead if `$primaryKey` is duplicate.
+ * 
+ * @param pdo $pdo
+ * @param string $table
+ * @param int|string $primaryKey
+ * @param array $record
+ */
+
+
+function save($pdo, $table, $primaryKey, $record): void
+{
+    try {
+        if (empty($record[$primaryKey])) {
+            unset($record[$primaryKey]);
+        }
+        insert($pdo, $table, $record);
+    } catch (PDOException $e) {
+        update($pdo, $table, $primaryKey, $record);
+    }
 }
