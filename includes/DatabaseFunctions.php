@@ -91,7 +91,7 @@ function update($pdo, $table, $primaryKey, $values): void
 
     $query = rtrim($query, ',');
 
-    $query .= ' WHERE`' . $primaryKey . '` = :primarykey';
+    $query .= ' WHERE`' . $primaryKey . '` = :primaryKey';
 
     // Set the :primaryKey variable
     $values['primaryKey'] = $values['id'];
