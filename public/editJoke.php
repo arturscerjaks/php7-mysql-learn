@@ -5,7 +5,7 @@ try {
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
-        update(
+        save(
             $pdo,
             'joke',
             'id',
@@ -17,11 +17,20 @@ try {
         );
         header('location: jokes.php');
     } else {
-        $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
+        if (isset($_GET['id'])) {   
+            $joke = find($pdo, 'joke', 'id', $_GET['id'])[0] ?? null;
+        }
+        else {
+            $joke = null;
+        }
+
+
         $title = 'Edit joke';
 
         ob_start();
+
         include __DIR__ . '/../templates/editjoke.html.php';
+        
         $output = ob_get_clean();
     }
 } catch (PDOException $e) {
