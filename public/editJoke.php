@@ -7,7 +7,7 @@ try {
     if (isset($_POST['joke'])) {
         $joke = $_POST['joke'];
         $joke['jokedate'] = new DateTime();
-        $joke['authorId'] = 1;
+        $joke['authorid'] = 1;
         save($pdo, 'joke', 'id', $joke);
         header('location: jokes.php');
     } else {
