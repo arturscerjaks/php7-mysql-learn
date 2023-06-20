@@ -40,13 +40,7 @@ class JokeController
 
         $totalJokes = $this->jokeTable->totalRows();
 
-        ob_start();
-
-        include  __DIR__ . '/../templates/jokes.html.php';
-
-        $output = ob_get_clean();
-
-        return ['output' => $output, 'title' => $title];
+        return ['template' => 'jokes.html.php', 'title' => $title];
     }
 
     public function home()
@@ -54,13 +48,7 @@ class JokeController
 
         $title = 'Internet Joke Database';
 
-        ob_start();
-
-        include  __DIR__ . '/../templates/home.html.php';
-
-        $output = ob_get_clean();
-
-        return ['output' => $output, 'title' => $title];
+        return ['template' => 'home.html.php', 'title' => $title];
     }
 
     public function delete()
@@ -91,13 +79,7 @@ class JokeController
 
             $title = 'Edit joke';
 
-            ob_start();
-
-            include __DIR__ . '/../templates/editjoke.html.php';
-
-            $output = ob_get_clean();
-
-            return ['output' => $output, 'title' => $title];
+            return ['template' => 'editjoke.html.php', 'title' => $title];
         }
     }
 }

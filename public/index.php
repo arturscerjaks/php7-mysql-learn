@@ -19,7 +19,11 @@ try {
 
     $title = $page['title'];
 
-    $output = $page['output'];
+    $output = ob_start();
+
+    include __DIR__ . '/../templates/' . $page['template'];
+
+    $output = ob_get_clean();
 } catch (PDOException $e) {
 
     $title = 'An error has occurred';
