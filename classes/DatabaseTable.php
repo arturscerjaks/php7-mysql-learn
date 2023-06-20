@@ -6,17 +6,11 @@ use DateTime, PDO, PDOException;
 
 class DatabaseTable
 {
-    public $pdo;
-    public $table;
-    public $primaryKey;
+    private $pdo;
+    private $table;
+    private $primaryKey;
 
-    /**
-     * Creates instance of DatabaseTable with class variables
-     * 
-     * @param PDO $pdo
-     * @param string $table
-     * @param string $primaryKey
-     */
+    /**Creates instance of DatabaseTable with class variables*/
 
     public function __construct(PDO $pdo, string $table, string $primaryKey)
     {
