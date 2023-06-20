@@ -9,9 +9,9 @@ try {
     include __DIR__ . '/../classes/DatabaseTable.php';
     include __DIR__ . '/../controllers/JokeController.php';
 
-    $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
-    $authorsTable = new DatabaseTable($pdo, 'author', 'id');
-    $jokeController = new JokeController($jokesTable, $authorsTable);
+    $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
+    $authorTable = new DatabaseTable($pdo, 'author', 'id');
+    $jokeController = new JokeController($jokeTable, $authorTable);
 
     if (isset($_GET['edit'])) {
         $page = $jokeController->edit();
