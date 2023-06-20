@@ -1,9 +1,15 @@
 <?php
+
+use App\Classes\DatabaseTable;
+use PDOException;
+
 try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    include __DIR__ . '/../includes/DatabaseFunctions.php';
+    include __DIR__ . '/../classes/DatabaseTable.php';
 
-    delete($pdo, 'joke', 'id', $_POST['id']);
+    $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
+
+    $jokeTable->delete('id', $_POST['id']);
 
     header('location: jokes.php');
 } catch (PDOException $e) {

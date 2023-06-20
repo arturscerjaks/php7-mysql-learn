@@ -1,13 +1,20 @@
 <?php
+
+use App\Classes\DatabaseTable;
+use PDOException;
+
 try {
   include __DIR__ . '/../includes/DatabaseConnection.php';
-  include __DIR__ . '/../includes/DatabaseFunctions.php';
+  include __DIR__ . '/../classses/DatabaseTable.php';
 
-  $result = findAll($pdo, 'joke');
+  $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
+  $authorTable = new DatabaseTable($pdo, 'author', 'id');
+
+  $result = $jokeTable->findAll();
 
   $jokes = [];
   foreach ($result as $joke) {
-          $author = find($pdo, 'author', 'id', $joke['authorid'])[0];
+          $author = $authorTable->find('id', $joke['authorid'])[0];
 
           $jokes[] = [
                   'id' => $joke['id'],
@@ -20,7 +27,7 @@ try {
 
   $title = 'Joke list';
 
-  $totalJokes = totalRows($pdo, 'joke');
+  $totalJokes = $jokeTable->totalRows();
 
   ob_start();
 

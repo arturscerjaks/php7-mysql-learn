@@ -32,7 +32,7 @@ class DatabaseTable
     /**
      * Returns all rows of a `$this->table` where `$field`'s value is `$value` as multidimensional array.
      * 
-     *  
+     * 
      * @param string $field
      * @param string|int $value
      * @return array[]
