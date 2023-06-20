@@ -3,6 +3,14 @@
 use App\Classes\DatabaseTable;
 use App\Classes\JokeController;
 
+function loadTemplate($templateFileName, $variables)
+{
+    extract($variables);
+    ob_start();
+    include __DIR__ . '/../templates/' . $templateFileName;
+    return ob_get_clean();
+}
+
 try {
 
     include __DIR__ . '/../includes/DatabaseConnection.php';
@@ -19,15 +27,8 @@ try {
 
     $title = $page['title'];
 
-    if (isset($page['variables'])) {
-        extract($page['variables']);
-    }
-
-    $output = ob_start();
-
-    include __DIR__ . '/../templates/' . $page['template'];
-
-    $output = ob_get_clean();
+    $variables = $page['variables'] ?? [];
+    $output = loadTemplate($page['template'], $variables);
 } catch (PDOException $e) {
 
     $title = 'An error has occurred';
