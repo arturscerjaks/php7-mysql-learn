@@ -19,6 +19,10 @@ try {
 
     $title = $page['title'];
 
+    if (isset($page['variables'])) {
+        extract($page['variables']);
+    }
+
     $output = ob_start();
 
     include __DIR__ . '/../templates/' . $page['template'];
