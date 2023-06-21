@@ -15,8 +15,8 @@
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="jokes.php?action=list">Jokes List</a></li>
-            <li><a href="editjoke.php?action=edit">Add a new Joke</a></li>
+            <li><a href="jokes.php?controller=joke&amp;action=list">Jokes List</a></li>
+            <li><a href="editjoke.php?controller=joke&amp;action=edit">Add a new Joke</a></li>
         </ul>
     </nav>
 
