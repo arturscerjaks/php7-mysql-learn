@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes;
+namespace App\Controllers;
 
 use App\Classes\DatabaseTable;
 use DateTime;
