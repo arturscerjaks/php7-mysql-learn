@@ -2,12 +2,19 @@
 
 namespace App\Classes;
 
-use App\Classes\DatabaseTable;
+use App\Classes\{DatabaseTable};
 use App\Controllers\{JokeController, AuthorController};
 use PDOException;
 
 class EntryPoint
 {
+    private $website;
+
+    public function __construct($website)
+    {
+        $this->website = $website;
+    }
+
     public function run($uri)
     {
         try {
@@ -22,7 +29,7 @@ class EntryPoint
             
             $this->checkUri($uri);
             if ($uri == '') {
-                $uri = 'joke/home';
+                $uri = $this->website->getDefaultRoute();
             }
             
             $route = explode('/', $uri);
