@@ -23,8 +23,16 @@ try {
     $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
     $authorTable = new DatabaseTable($pdo, 'author', 'id');
 
-    $action = $_GET['action'] ?? 'home';
-    $controllerName = $_GET['controller'] ?? 'joke';
+    $uri = strtok(ltrim($_SERVER['REQUEST_URI'], '/'), '?');
+
+    if ($uri == '') {
+        $uri = 'joke/home';
+    }
+
+    $route = explode('/', $uri);
+
+    $controllerName = array_shift($route);
+    $action = array_shift($route);
 
     if ($controllerName === 'joke') {
         $controller = new JokeController($jokeTable, $authorTable);
@@ -32,11 +40,11 @@ try {
         $controller = new AuthorController($authorTable);
     }
 
-    if ($action == strtolower($action) && $controllerName == strtolower($controllerName)) {
-        $controller->$action();
+    if ($uri == strtolower($uri)) {
+        $page = $controller->$action();
     } else {
         http_response_code(301);
-        header('location: index.php?controller=' . strtolower($controller) . '&action=' . strtolower($action));
+        header('location: /' . strtolower($uri));
         exit;
     }
 
