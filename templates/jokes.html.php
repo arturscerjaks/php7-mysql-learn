@@ -18,7 +18,7 @@
                 $jokedate = new DateTime($joke['jokedate']);
                 echo $jokedate->format('jS F Y');
                 ?>)
-            <a href="/joke/edit&id=<?= $joke['id'] ?>">Edit</a>
+            <a href="/joke/edit/=<?= $joke['id'] ?>">Edit</a>
         </p>
         <form action="/joke/delete" method="post">
             <input type="hidden" name="id" value="<?= $joke['id'] ?>">

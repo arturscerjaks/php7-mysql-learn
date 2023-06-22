@@ -7,8 +7,10 @@ use App\Controllers\JokeController;
 function loadTemplate($templateFileName, $variables)
 {
     extract($variables);
+
     ob_start();
     include __DIR__ . '/../templates/' . $templateFileName;
+
     return ob_get_clean();
 }
 
@@ -41,7 +43,7 @@ try {
     }
 
     if ($uri == strtolower($uri)) {
-        $page = $controller->$action();
+        $page = $controller->$action(...$route);
     } else {
         http_response_code(301);
         header('location: /' . strtolower($uri));
