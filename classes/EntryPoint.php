@@ -2,8 +2,6 @@
 
 namespace App\Classes;
 
-use App\Classes\{DatabaseTable};
-use App\Controllers\{JokeController, AuthorController};
 use PDOException;
 
 class EntryPoint
@@ -19,38 +17,29 @@ class EntryPoint
     {
         try {
 
-            include __DIR__ . '/../includes/DatabaseConnection.php';
-            include __DIR__ . '/../classes/DatabaseTable.php';
-            include __DIR__ . '/../controllers/JokeController.php';
-            include __DIR__ . '/../controllers/AuthorController.php';
-
-            $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
-            $authorTable = new DatabaseTable($pdo, 'author', 'id');
-            
             $this->checkUri($uri);
             if ($uri == '') {
                 $uri = $this->website->getDefaultRoute();
             }
-            
+
             $route = explode('/', $uri);
-            
+
             $controllerName = array_shift($route);
-            
+
             $action = array_shift($route);
-            
-            if ($controllerName === 'joke') {
-                $controller = new JokeController($jokeTable, $authorTable);
-            } else if ($controllerName === 'author') {
-                $controller = new AuthorController($authorTable);
-            }
-            
+
+            $controller = $this->website->getController($controllerName);
+
             $page = $controller->$action(...$route);
-            $title = $page['title'];
-            $variables = $page['variables'] ?? [];
             
+            $title = $page['title'];
+
+            $variables = $page['variables'] ?? [];
+
             $output = $this->loadTemplate($page['template'], $variables);
         } catch (PDOException $e) {
             $title = 'An error has occurred';
+
             $output = 'Database error: ' . $e->getMessage() . ' in ' .
                 $e->getFile() . ':' . $e->getLine();
         }

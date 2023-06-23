@@ -7,9 +7,9 @@ include_once __DIR__ . '/../Classes/EntryPoint.php';
 
 $uri = strtok(ltrim($_SERVER['REQUEST_URI'], '/'), '?');
 
-$website = new JokeWebsite();
+$jokeWebsite = new JokeWebsite();
 
-$entryPoint = new EntryPoint($website);
+$entryPoint = new EntryPoint($jokeWebsite);
 $entryPoint->run($uri);
 
 
