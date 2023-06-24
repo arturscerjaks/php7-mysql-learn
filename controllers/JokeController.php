@@ -1,5 +1,7 @@
 <?php
 
+/**IJDB-specific controller with /joke route*/
+
 namespace App\Controllers;
 
 use App\Classes\DatabaseTable;

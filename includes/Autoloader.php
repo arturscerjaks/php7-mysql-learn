@@ -2,7 +2,7 @@
 
 /**Autoloader function for classes*/
 
-namespace App\Includes\Autoloader;
+namespace App\Includes;
 
 /**@param string $className*/
 

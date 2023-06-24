@@ -1,5 +1,7 @@
 <?php
 
+/**Commonly used generic database operation methods*/
+
 namespace App\Classes;
 
 use DateTime, PDO, PDOException;

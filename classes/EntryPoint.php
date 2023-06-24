@@ -1,5 +1,7 @@
 <?php
 
+/**Front-controller generic framework class*/
+
 namespace App\Classes;
 
 use PDOException;

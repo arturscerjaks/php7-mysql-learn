@@ -1,5 +1,7 @@
 <?php
 
+/**Holds Internet Joke Database-specific configurations: default route, controllers & necessary tables */
+
 namespace App\Classes;
 
 use App\Controllers\{JokeController,AuthorController};
