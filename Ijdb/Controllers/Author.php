@@ -2,11 +2,11 @@
 
 /**IJDB-specific controller /w /author route*/
 
-namespace App\Controllers;
+namespace Ijdb\Controllers;
 
-use App\Classes\DatabaseTable;
+use Framework\DatabaseTable;
 
-class AuthorController {
+class Author {
 
     private $authorTable;
 

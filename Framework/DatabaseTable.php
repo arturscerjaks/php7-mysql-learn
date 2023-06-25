@@ -2,9 +2,7 @@
 
 /**Commonly used generic database operation methods*/
 
-namespace App\Classes;
-
-use DateTime, PDO, PDOException;
+namespace Framework;
 
 class DatabaseTable
 {
@@ -14,7 +12,7 @@ class DatabaseTable
 
     /**Creates instance of DatabaseTable with class variables*/
 
-    public function __construct(PDO $pdo, string $table, string $primaryKey)
+    public function __construct(\PDO $pdo, string $table, string $primaryKey)
     {
         $this->pdo = $pdo;
         $this->table = $table;
@@ -153,7 +151,7 @@ class DatabaseTable
     private function processDates($values): array
     {
         foreach ($values as $key => $value) {
-            if ($value instanceof DateTime) {
+            if ($value instanceof \DateTime) {
                 $values[$key] = $value->format('Y-m-d H:i:s');
             }
         }
@@ -175,7 +173,7 @@ class DatabaseTable
                 unset($record[$this->primaryKey]);
             }
             $this->insert($record);
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $this->update($record);
         }
     }

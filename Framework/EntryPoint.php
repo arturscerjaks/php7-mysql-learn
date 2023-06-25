@@ -2,7 +2,7 @@
 
 /**Front-controller generic framework class*/
 
-namespace App\Classes;
+namespace Framework;
 
 use PDOException;
 

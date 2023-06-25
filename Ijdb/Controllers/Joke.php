@@ -2,12 +2,11 @@
 
 /**IJDB-specific controller with /joke route*/
 
-namespace App\Controllers;
+namespace Ijdb\Controllers;
 
-use App\Classes\DatabaseTable;
-use DateTime;
+use \Framework\DatabaseTable;
 
-class JokeController
+class Joke
 {
 
     private $authorTable;
@@ -72,7 +71,7 @@ class JokeController
         if (isset($_POST['joke'])) {
 
             $joke = $_POST['joke'];
-            $joke['jokedate'] = new DateTime();
+            $joke['jokedate'] = new \DateTime();
             $joke['authorid'] = 1;
 
             $this->jokeTable->save($joke);
