@@ -59,7 +59,9 @@ class Joke
         return ['template' => 'home.html.php', 'title' => $title];
     }
 
-    public function delete()
+    /**Handles joke deletion*/
+
+    public function deleteSubmit()
     {
         $this->jokeTable->delete('id', $_POST['id']);
 
