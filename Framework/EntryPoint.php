@@ -4,8 +4,6 @@
 
 namespace Framework;
 
-use PDOException;
-
 class EntryPoint
 {
     private $website;
@@ -39,7 +37,7 @@ class EntryPoint
             $variables = $page['variables'] ?? [];
 
             $output = $this->loadTemplate($page['template'], $variables);
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $title = 'An error has occurred';
 
             $output = 'Database error: ' . $e->getMessage() . ' in ' .
