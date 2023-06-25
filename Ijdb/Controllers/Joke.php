@@ -66,34 +66,41 @@ class Joke
         header('location: /joke/list');
     }
 
+    /**Handles form submission*/
+
+    public function editSubmit(): void
+    {
+        $joke = $_POST['joke'];
+        $joke['jokedate'] = new \DateTime();
+        $joke['authorid'] = 1;
+
+        $this->jokeTable->save($joke);
+
+        header('location: /joke/list');
+    }
+
+    /**Displays the form for editting or adding a joke
+     * 
+     * 
+     * @param int|null $id
+     * @return (string|(array|null)[])[]
+    */
+
     public function edit($id = null)
     {
-        if (isset($_POST['joke'])) {
 
-            $joke = $_POST['joke'];
-            $joke['jokedate'] = new \DateTime();
-            $joke['authorid'] = 1;
-
-            $this->jokeTable->save($joke);
-
-            header('location: /joke/list');
-        } else {
-
-            if (isset($id)) {
-                $joke = $this->jokeTable->find('id', $id)[0] ?? null;
-            } else {
-                $joke = null;
-            }
-
-            $title = 'Edit joke';
-
-            return [
-                'template' => 'editjoke.html.php',
-                'title' => $title,
-                'variables' => [
-                    'joke' => $joke ?? null
-                ]
-            ];
+        if (isset($id)) {
+            $joke = $this->jokeTable->find('id', $id)[0] ?? null;
         }
+
+        $title = 'Edit joke';
+
+        return [
+            'template' => 'editjoke.html.php',
+            'title' => $title,
+            'variables' => [
+                'joke' => $joke ?? null
+            ]
+        ];
     }
 }
