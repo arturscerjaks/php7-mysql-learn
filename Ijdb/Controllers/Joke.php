@@ -12,13 +12,19 @@ class Joke
     private $authorTable;
     private $jokeTable;
 
-    /**Creates instance of JokeController with class variables*/
+    /**Constructs instance of JokeController with class variables*/
 
     public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable)
     {
         $this->jokeTable = $jokeTable;
         $this->authorTable = $authorTable;
     }
+
+    /**Finds all rows in joke table, adds info from author table to each joke.
+     * Returns info for template to show list
+     * 
+     * @return mixed[]
+     */
 
     public function list()
     {
@@ -51,6 +57,11 @@ class Joke
         ];
     }
 
+    /**Gives template correct info to show home page
+     * 
+     * @return array
+    */
+
     public function home()
     {
 
@@ -81,11 +92,14 @@ class Joke
         header('location: /joke/list');
     }
 
-    /**Displays the form for editting or adding a joke
+    /**Displays the form for editting or adding a joke.
      * 
+     * 
+     * Finds and displays a joke if already there, else shows empty form.
+     * Returns values necessary for template to show correct info.
      * 
      * @param int|null $id
-     * @return (string|(array|null)[])[]
+     * @return mixed[] 
     */
 
     public function edit($id = null)
