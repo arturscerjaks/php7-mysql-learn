@@ -36,5 +36,11 @@ class Author
         ];
     }
 
-    
+    public function registrationFormSubmit() {
+        $author = $_POST['author'];
+
+        $this->authorTable->save($author);
+
+        header('location: /author/success');
+    }
 }
