@@ -66,6 +66,9 @@ class Author
 
         // If $valid is still true, no fields were blank and the data can be added
         if (empty($errors)) {
+            // Hash the password before saving
+            $author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
+            
             $this->authorTable->save($author);
             header('Location: /author/success');
         } else {
