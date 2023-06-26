@@ -36,23 +36,28 @@ class Author
         ];
     }
 
+    /**Handles user registration and form validation*/
+
     public function registrationFormSubmit()
     {
         $author = $_POST['author'];
+
 
         $errors = [];
 
         // But if any of the fields have been left blank, set $valid to false
         if (empty($author['name'])) {
-            $errors = 'Name cannot be blank';
+            $errors[] = 'Name cannot be blank';
         }
 
         if (empty($author['email'])) {
-            $errors = 'Email cannot be blank';
+            $errors[] = 'Email cannot be blank';
+        } else if (filter_var($author['email']) == false) {
+            $errors[] = 'Invalid email address';
         }
 
         if (empty($author['password'])) {
-            $errors = 'Password cannot be blank';
+            $errors[] = 'Password cannot be blank';
         }
 
         // If $valid is still true, no fields were blank and the data can be added
