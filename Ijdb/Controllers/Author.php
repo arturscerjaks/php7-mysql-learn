@@ -66,7 +66,8 @@ class Author
                 'template' => 'register.html.php',
                 'title' => 'Register an account',
                 'variables' => [
-                    'errors' => $errors
+                    'errors' => $errors,
+                    'author' => $author
                 ]
             ];
         }
