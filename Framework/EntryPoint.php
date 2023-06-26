@@ -8,12 +8,12 @@ class EntryPoint
 {
     private $website;
 
-    public function __construct($website)
+    public function __construct(\Framework\Website $website)
     {
         $this->website = $website;
     }
 
-    public function run($uri, $method)
+    public function run(string $uri, string $method)
     {
         try {
             $this->checkUri($uri);
@@ -34,7 +34,7 @@ class EntryPoint
             $controller = $this->website->getController($controllerName);
 
             $page = $controller->$action(...$route);
-            
+
             $title = $page['title'];
 
             $variables = $page['variables'] ?? [];

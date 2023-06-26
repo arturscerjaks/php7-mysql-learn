@@ -8,7 +8,7 @@ use Framework\DatabaseTable;
 use Ijdb\Controllers\{Joke, Author};
 use PDO;
 
-class IjdbRoutes
+class IjdbRoutes implements \Framework\Website
 {
 
     /**@var PDO $pdo Joke database connection*/
