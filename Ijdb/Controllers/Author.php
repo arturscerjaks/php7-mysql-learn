@@ -56,6 +56,10 @@ class Author
             $errors[] = 'Invalid email address';
         }
 
+        if (count($this->authorTable->find('email', $author['email'])) > 0) {
+            $errors[] = 'That email address is already registered';
+        }
+
         if (empty($author['password'])) {
             $errors[] = 'Password cannot be blank';
         }
