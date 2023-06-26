@@ -23,12 +23,12 @@ class IjdbRoutes implements \Framework\Website
         );
     }
 
-    public function getDefaultRoute()
+    public function getDefaultRoute(): string
     {
         return 'joke/home';
     }
 
-    public function getController(string $controllerName)
+    public function getController(string $controllerName): object
     {
         $jokeTable = new DatabaseTable($this->pdo, 'joke', 'id');
         $authorTable = new DatabaseTable($this->pdo, 'author', 'id');
