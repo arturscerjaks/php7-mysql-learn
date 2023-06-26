@@ -15,7 +15,8 @@ class IjdbRoutes implements \Framework\Website
 
     private $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->pdo = new PDO(
             'mysql:host=mysql;dbname=ijdb;charset=utf8mb4',
             'ijdbuser',
@@ -28,7 +29,7 @@ class IjdbRoutes implements \Framework\Website
         return 'joke/home';
     }
 
-    public function getController(string $controllerName): object
+    public function getController(string $controllerName): ?object
     {
         $jokeTable = new DatabaseTable($this->pdo, 'joke', 'id');
         $authorTable = new DatabaseTable($this->pdo, 'author', 'id');
@@ -37,6 +38,8 @@ class IjdbRoutes implements \Framework\Website
             $controller = new Joke($jokeTable, $authorTable);
         } else if ($controllerName === 'author') {
             $controller = new Author($authorTable);
+        } else {
+            $controller = null;
         }
 
         return $controller;
