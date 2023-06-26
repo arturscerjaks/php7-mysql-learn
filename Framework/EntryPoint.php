@@ -13,11 +13,11 @@ class EntryPoint
         $this->website = $website;
     }
 
-    public function run($uri)
+    public function run($uri, $method)
     {
         try {
-
             $this->checkUri($uri);
+
             if ($uri == '') {
                 $uri = $this->website->getDefaultRoute();
             }
@@ -25,10 +25,9 @@ class EntryPoint
             $route = explode('/', $uri);
 
             $controllerName = array_shift($route);
-
             $action = array_shift($route);
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($method === 'POST') {
                 $action .= 'Submit';
             }
 
