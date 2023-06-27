@@ -4,7 +4,7 @@
 
 namespace Ijdb\Controllers;
 
-use \Framework\DatabaseTable;
+use Framework\DatabaseTable;
 
 class Author
 {

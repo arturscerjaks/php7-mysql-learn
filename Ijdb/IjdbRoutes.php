@@ -4,11 +4,12 @@
 
 namespace Ijdb;
 
+use Framework\Website;
 use Framework\DatabaseTable;
 use Ijdb\Controllers\{Joke, Author};
-use PDO;
+use \PDO;
 
-class IjdbRoutes implements \Framework\Website
+class IjdbRoutes implements Website
 {
 
     /**@var PDO $pdo Joke database connection*/
@@ -17,7 +18,7 @@ class IjdbRoutes implements \Framework\Website
 
     public function __construct()
     {
-        $this->pdo = new PDO(
+        $this->pdo = new \PDO(
             'mysql:host=mysql;dbname=ijdb;charset=utf8mb4',
             'ijdbuser',
             'mypassword'
