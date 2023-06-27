@@ -11,6 +11,10 @@ class Authentication
     private $usernameColumn;
     private $passwordColumn;
 
+    /**Creates Authentication class. `$users` is table where user details are found,
+     * `$usernameColumn` is name of username column and `$passwordColumn` is name of pass column
+     */
+
     public function __construct(DatabaseTable $users, string $usernameColumn, string $passwordColumn)
     {
         $this->users = $users;
