@@ -4,8 +4,7 @@
 
 namespace Ijdb;
 
-use Framework\Website;
-use Framework\DatabaseTable;
+use Framework\{Authentication, Website, DatabaseTable};
 use Ijdb\Controllers\{Joke, Author};
 use \PDO;
 
@@ -15,6 +14,9 @@ class IjdbRoutes implements Website
     /**@var PDO $pdo Joke database connection*/
 
     private $pdo;
+    private $jokeTable;
+    private $authorTable;
+    private $authentication;
 
     public function __construct()
     {
@@ -23,6 +25,9 @@ class IjdbRoutes implements Website
             'ijdbuser',
             'mypassword'
         );
+        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id');
+        $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id');
+        $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
 
     public function getDefaultRoute(): string
@@ -32,17 +37,28 @@ class IjdbRoutes implements Website
 
     public function getController(string $controllerName): ?object
     {
-        $jokeTable = new DatabaseTable($this->pdo, 'joke', 'id');
-        $authorTable = new DatabaseTable($this->pdo, 'author', 'id');
+
 
         if ($controllerName === 'joke') {
-            $controller = new Joke($jokeTable, $authorTable);
+            $controller = new Joke($this->jokeTable, $this->authorTable);
         } else if ($controllerName === 'author') {
-            $controller = new Author($authorTable);
+            $controller = new Author($this->authorTable);
         } else {
             $controller = null;
         }
 
         return $controller;
+    }
+
+    public function checkLogin(string $uri): ?string
+    {
+        $restrictedPages = ['joke/edit', 'joke/delete'];
+
+        if (in_array($uri, $restrictedPages) && !$this->authentication->isLoggedIn()) {
+            header('location: /login/login');
+            exit();
+        }
+
+        return $uri;
     }
 }
