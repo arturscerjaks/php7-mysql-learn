@@ -36,7 +36,15 @@ class Authentication
         }
     }
 
-    public function isLoggedIn(): bool {
+    /**Checks whether user is logged in.
+     * 
+     * 
+     * Returns true if an user is found in $_SESSION with username in DB's `$this->usernameColumn`
+     * and if password in $_SESSION matches with hashed password in DB's `$this->passwordColumn`
+     */
+
+    public function isLoggedIn(): bool
+    {
         if (empty($_SESSION['username'])) {
             return false;
         }
@@ -50,7 +58,8 @@ class Authentication
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         unset($_SESSION['username']);
         unset($_SESSION['password']);
         session_regenerate_id();
