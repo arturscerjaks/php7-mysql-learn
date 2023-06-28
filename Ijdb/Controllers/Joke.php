@@ -48,7 +48,8 @@ class Joke
                 'joketext' => $joke['joketext'],
                 'jokedate' => $joke['jokedate'],
                 'name' => $author['name'],
-                'email' => $author['email']
+                'email' => $author['email'],
+                'authorid' => $author['id']
             ];
         }
 
@@ -56,12 +57,15 @@ class Joke
 
         $totalJokes = $this->jokeTable->totalRows();
 
+        $user = $this->authentication->getUser();
+
         return [
             'template' => 'jokes.html.php',
             'title' => $title,
             'variables' => [
                 'totalJokes' => $totalJokes,
-                'jokes' => $jokes
+                'jokes' => $jokes,
+                'userId' => $user['id'] ?? null
             ]
         ];
     }
