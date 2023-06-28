@@ -11,7 +11,7 @@ class Authentication
     private $usernameColumn;
     private $passwordColumn;
 
-    /**Creates instance of Authentication class.
+    /**Creates instance of Authentication class and starts session.
      * 
      * 
      * @param DatabaseTable $users is table where user details are found
