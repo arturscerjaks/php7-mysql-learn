@@ -5,7 +5,7 @@
 namespace Ijdb;
 
 use Framework\{Authentication, Website, DatabaseTable};
-use Ijdb\Controllers\{Joke, Author};
+use Ijdb\Controllers\{Joke, Author, Login};
 use \PDO;
 
 class IjdbRoutes implements Website
@@ -43,6 +43,8 @@ class IjdbRoutes implements Website
             $controller = new Joke($this->jokeTable, $this->authorTable);
         } else if ($controllerName === 'author') {
             $controller = new Author($this->authorTable);
+        } else if ($controllerName === 'login') {
+            $controller = new Login($this->authentication);
         } else {
             $controller = null;
         }
