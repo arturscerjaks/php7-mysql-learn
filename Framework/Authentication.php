@@ -11,8 +11,12 @@ class Authentication
     private $usernameColumn;
     private $passwordColumn;
 
-    /**Creates Authentication class. `$users` is table where user details are found,
-     * `$usernameColumn` is name of username column and `$passwordColumn` is name of pass column
+    /**Creates instance of Authentication class.
+     * 
+     * 
+     * @param DatabaseTable $users is table where user details are found
+     * @param string $usernameColumn is name of username column
+     * @param string $passwordColumn is name of pass column
      */
 
     public function __construct(DatabaseTable $users, string $usernameColumn, string $passwordColumn)
@@ -23,6 +27,14 @@ class Authentication
 
         session_start();
     }
+
+    /**Tries to log in user with credentials
+     * 
+     * 
+     * @param string $username is checked if in `$this->usernameColumn`
+     * @param string $password is then checked if matches `$this->passwordColumn`
+     * @return bool true if success or false if failure
+    */
 
     public function login(string $username, string $password): bool
     {
@@ -62,10 +74,28 @@ class Authentication
         }
     }
 
+    /**Logs out current user, regens session id*/
+
     public function logout()
     {
         unset($_SESSION['username']);
         unset($_SESSION['password']);
         session_regenerate_id();
+    }
+
+    /**Finds current user's row in DB's user table.
+     * 
+     * 
+     * Returns all rows of `$this->users` where `$this->usernameColumn`
+     * is equal to `$_SESSION['username']`
+     * */
+
+    public function getUser(): ?array
+    {
+        if ($this->isLoggedIn()) {
+            return $this->users->find($this->usernameColumn, strtolower($_SESSION['username']))[0];
+        } else {
+            return false;
+        }
     }
 }
