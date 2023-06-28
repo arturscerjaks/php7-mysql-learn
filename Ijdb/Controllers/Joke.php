@@ -126,11 +126,14 @@ class Joke
 
         $title = 'Edit joke';
 
+        $author = $this->authentication->getUser();
+
         return [
             'template' => 'editjoke.html.php',
             'title' => $title,
             'variables' => [
-                'joke' => $joke ?? null
+                'joke' => $joke ?? null,
+                'userId' => $author['id'] ?? null
             ]
         ];
     }
