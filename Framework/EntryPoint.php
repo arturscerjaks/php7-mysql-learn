@@ -39,10 +39,10 @@ class EntryPoint
 
             if (is_callable([$controller, $action])) {
                 $page = $controller->$action(...$route);
-                
+
                 $title = $page['title'];
-                
-                $variables = $page['variables'] ?? [];       
+
+                $variables = $page['variables'] ?? [];
                 $output = $this->loadTemplate($page['template'], $variables);
             } else {
                 http_response_code(404);
@@ -55,7 +55,12 @@ class EntryPoint
             $output = 'Database error: ' . $e->getMessage() . ' in ' .
                 $e->getFile() . ':' . $e->getLine();
         }
-        include __DIR__ . '/../templates/layout.html.php';
+        
+        $layoutVariables = $this->website->getLayoutVariables();
+        $layoutVariables['title'] = $title;
+        $layoutVariables['output'] = $output;
+
+        echo $this->loadTemplate('layout.html.php', $layoutVariables);
     }
 
     private function loadTemplate($templateFileName, $variables)
