@@ -40,7 +40,7 @@ class IjdbRoutes implements Website
 
 
         if ($controllerName === 'joke') {
-            $controller = new Joke($this->jokeTable, $this->authorTable);
+            $controller = new Joke($this->jokeTable, $this->authorTable, $this->authentication);
         } else if ($controllerName === 'author') {
             $controller = new Author($this->authorTable);
         } else if ($controllerName === 'login') {
