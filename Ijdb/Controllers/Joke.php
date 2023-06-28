@@ -20,7 +20,7 @@ class Joke
      * @param DatabaseTable $jokeTable
      * @param DatabaseTable $authorTable
      * @param Authentication $authentication
-    */
+     */
 
     public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable, Authentication $authentication)
     {
@@ -73,7 +73,7 @@ class Joke
     /**Gives template correct info to show home page
      * 
      * @return array
-    */
+     */
 
     public function home()
     {
@@ -87,6 +87,14 @@ class Joke
 
     public function deleteSubmit()
     {
+        $author = $this->authentication->getUser();
+
+        $joke = $this->jokeTable->find('id', $_POST['id'])[0];
+
+        if ($joke['authorid'] != $author['id']) {
+            return;
+        }
+
         $this->jokeTable->delete('id', $_POST['id']);
 
         header('location: /joke/list');
@@ -94,9 +102,17 @@ class Joke
 
     /**Handles form submission*/
 
-    public function editSubmit(): void
+    public function editSubmit($id = null): void
     {
         $author = $this->authentication->getUser();
+
+        if (isset($id)) {
+            $joke = $this->jokeTable->find('id', $id)[0] ?? null;
+        }
+
+        if ($joke['authorid'] != $author['id']) {
+            return;
+        }
 
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
@@ -115,7 +131,7 @@ class Joke
      * 
      * @param int|null $id
      * @return mixed[] 
-    */
+     */
 
     public function edit($id = null)
     {
