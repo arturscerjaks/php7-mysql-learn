@@ -63,4 +63,11 @@ class IjdbRoutes implements Website
 
         return $uri;
     }
+
+    public function getLayoutVariables(): array
+    {
+        return [
+            'loggedIn' => $this->authentication->isLoggedIn()
+        ];
+    }
 }
