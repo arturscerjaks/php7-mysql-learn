@@ -4,6 +4,7 @@
 
 namespace Ijdb\Controllers;
 
+use Framework\Authentication;
 use \Framework\DatabaseTable;
 
 class Joke
@@ -11,13 +12,21 @@ class Joke
 
     private $authorTable;
     private $jokeTable;
+    private $authentication;
 
-    /**Constructs instance of JokeController with class variables*/
+    /**Constructs instance of JokeController with class variables
+     * 
+     * 
+     * @param DatabaseTable $jokeTable
+     * @param DatabaseTable $authorTable
+     * @param Authentication $authentication
+    */
 
-    public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable)
+    public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable, Authentication $authentication)
     {
         $this->jokeTable = $jokeTable;
         $this->authorTable = $authorTable;
+        $this->authentication = $authentication;
     }
 
     /**Finds all rows in joke table, adds info from author table to each joke.
@@ -83,9 +92,11 @@ class Joke
 
     public function editSubmit(): void
     {
+        $author = $this->authentication->getUser();
+
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
-        $joke['authorid'] = 1;
+        $joke['authorid'] = $author['id'];
 
         $this->jokeTable->save($joke);
 
