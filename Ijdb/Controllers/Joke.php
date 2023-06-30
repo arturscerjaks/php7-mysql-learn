@@ -6,6 +6,7 @@ namespace Ijdb\Controllers;
 
 use Framework\Authentication;
 use \Framework\DatabaseTable;
+use Ijdb\Entity\Author;
 
 class Joke
 {
@@ -102,23 +103,26 @@ class Joke
 
     /**Handles form submission*/
 
-    public function editSubmit($id = null): void
+    public function editSubmit(): void
     {
+        // Get the currently logged in user as the $author to associate the joke with
         $author = $this->authentication->getUser();
 
-        if (isset($id)) {
-            $joke = $this->jokeTable->find('id', $id)[0] ?? null;
-        }
+        // Create an 'Author' entity instance
+        $authorObject = new Author($this->jokeTable);
 
-        if ($joke['authorid'] != $author['id']) {
-            return;
-        }
+        // Copy values from the `$author` array into entity instance's properties
+        $authorObject->id = $author['id'];
+        $authorObject->name = $author['name'];
+        $authorObject->email = $author['email'];
+        $authorObject->password = $author['password'];
 
+        // Read the form submission and set the date
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
-        $joke['authorid'] = $author['id'];
 
-        $this->jokeTable->save($joke);
+        // Save the joke
+        $authorObject->addJoke($joke);
 
         header('location: /joke/list');
     }
