@@ -11,7 +11,8 @@ class Author {
     public string $password;
     private DatabaseTable $jokeTable;
 
-    /**Creates instance of Author class.
+    /**
+     * Creates instance of Author class.
      * 
      * 
      * Besides jokeTable param, there are 4 public initially unset variables (with var tag)
@@ -26,13 +27,15 @@ class Author {
         $this->jokeTable = $jokeTable;
     }
 
-    /**Returns all jokes from DB table where authorid is `$this->id`*/
+    /**
+     * Returns all jokes from DB table where authorid is `$this->id`*/
 
     public function getJokes(): object {
         return $this->jokeTable->find('authorid', $this->id);
     }
 
-    /**Adds a joke to the `joke` DB table
+    /**
+     * Adds a joke to the `joke` DB table
      * 
      * 
      * Changes instance's `$this->id` to `$joke['authorid']`
