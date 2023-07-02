@@ -9,14 +9,27 @@ class DatabaseTable
     private $pdo;
     private $table;
     private $primaryKey;
+    private $className;
+    private $constructorArgs;
 
-    /**Creates instance of DatabaseTable with class variables*/
+    /**
+     * Creates instance of DatabaseTable with class variables
+     * 
+     * @param \PDO $pdo
+     * @param string $table name of DB table
+     * @param string $primaryKey primary key of said DB table
+     * @param string $className object class for find() & findAll() data storage
+     * @param array $constructorArgs necessary for chosen object class
+     */
 
-    public function __construct(\PDO $pdo, string $table, string $primaryKey)
+
+    public function __construct(\PDO $pdo, string $table, string $primaryKey, string $className = '\stdClass', array $constructorArgs = [])
     {
         $this->pdo = $pdo;
         $this->table = $table;
         $this->primaryKey = $primaryKey;
+        $this->className = $className;
+        $this->constructorArgs = $constructorArgs;
     }
 
     /** Counts amount of rows in `$this->table`*/
