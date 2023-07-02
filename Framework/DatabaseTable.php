@@ -43,12 +43,12 @@ class DatabaseTable
     }
 
     /**
-     * Returns all rows of a `$this->table` where `$field`'s value is `$value` as multidimensional array.
+     * Returns all rows of a `$this->table` where `$field`'s value is `$value` as object.
      * 
      * 
      * @param string $field
      * @param string|int $value
-     * @return array[]
+     * @return object specified in DatabaseTable instance constructor
      */
 
     function find($field, $value)
@@ -61,7 +61,7 @@ class DatabaseTable
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($values);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->className, $this->constructorArgs);
     }
 
     /**
@@ -140,10 +140,10 @@ class DatabaseTable
     }
 
     /**
-     * Returns all rows of `$this->table` as a multidimensional array
+     * Returns all rows of `$this->table` as an object
      * 
      * 
-     * @return array[]
+     * @return object specified in DatabaseTable instance constructor
      */
 
     function findAll()
@@ -151,7 +151,7 @@ class DatabaseTable
         $stmt = $this->pdo->prepare('SELECT * FROM `' . $this->table . '`');
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->className, $this->constructorArgs);
     }
     /**
      * Returns modified array where DateTime objects are formatted the same way
