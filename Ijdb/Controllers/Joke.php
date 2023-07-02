@@ -105,24 +105,21 @@ class Joke
 
     public function editSubmit(): void
     {
-        // Get the currently logged in user as the $author to associate the joke with
         $author = $this->authentication->getUser();
 
-        // Create an 'Author' entity instance
-        $authorObject = new Author($this->jokeTable);
+        if (!empty($id)) {
+            $joke = $this->jokeTable->find('id', $id)[0];
+            
+            if ($joke->authorid != $author->id) {
+                return;
+            }
+        }
 
-        // Copy values from the `$author` array into entity instance's properties
-        $authorObject->id = $author['id'];
-        $authorObject->name = $author['name'];
-        $authorObject->email = $author['email'];
-        $authorObject->password = $author['password'];
 
-        // Read the form submission and set the date
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
 
-        // Save the joke
-        $authorObject->addJoke($joke);
+        $author->addJoke($joke);
 
         header('location: /joke/list');
     }
