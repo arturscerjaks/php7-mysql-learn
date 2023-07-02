@@ -15,7 +15,8 @@ class Joke
     private $jokeTable;
     private $authentication;
 
-    /**Constructs instance of JokeController with class variables
+    /**
+     * Constructs instance of JokeController with class variables
      * 
      * 
      * @param DatabaseTable $jokeTable
@@ -30,7 +31,8 @@ class Joke
         $this->authentication = $authentication;
     }
 
-    /**Finds all rows in joke table, adds info from author table to each joke.
+    /**
+     * Finds all rows in joke table, adds info from author table to each joke.
      * Returns info for template to show list
      * 
      * @return mixed[]
@@ -71,7 +73,8 @@ class Joke
         ];
     }
 
-    /**Gives template correct info to show home page
+    /**
+     * Gives template correct info to show home page
      * 
      * @return array
      */
@@ -124,7 +127,8 @@ class Joke
         header('location: /joke/list');
     }
 
-    /**Displays the form for editting or adding a joke.
+    /**
+     * Displays the form for editting or adding a joke.
      * 
      * 
      * Finds and displays a joke if already there, else shows empty form.
