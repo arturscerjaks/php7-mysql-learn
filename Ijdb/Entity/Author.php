@@ -28,7 +28,7 @@ class Author {
 
     /**Returns all jokes from DB table where authorid is `$this->id`*/
 
-    public function getJokes(): array {
+    public function getJokes(): object {
         return $this->jokeTable->find('authorid', $this->id);
     }
 
