@@ -11,13 +11,19 @@ use \PDO;
 class IjdbRoutes implements Website
 {
 
-    /**@var PDO $pdo Joke database connection*/
-
     private $pdo;
     private ?DatabaseTable $jokeTable;
     private ?DatabaseTable $authorTable;
     private ?DatabaseTable $categoryTable;
+    private ?DatabaseTable $jokeCategoryTable;
     private Authentication $authentication;
+
+    /**
+     * Creates IjdbRoutes instance with dependencies for controllers and site-specific routes
+     * 
+     * 
+     * DBTable constructors may specify what object type to return in methods
+     */
 
     public function __construct()
     {
@@ -26,9 +32,10 @@ class IjdbRoutes implements Website
             'ijdbuser',
             'mypassword'
         );
-        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable]);
+        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable, &$this->jokeCategoryTable]);
         $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
         $this->categoryTable = new DatabaseTable($this->pdo, 'category', 'id');
+        $this->jokeCategoryTable = new DatabaseTable($this->pdo, 'joke_category', 'categoryId');
         $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
 
