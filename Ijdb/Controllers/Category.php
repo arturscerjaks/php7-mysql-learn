@@ -38,10 +38,7 @@ class Category
     }
 
     /**
-     * Saves submitted category to DB's `category` table
-     * 
-     * 
-     * After that redirects to /category/list
+     * Saves submitted category to DB's `category` table, redirects to list
      */
 
     public function editSubmit()
@@ -67,4 +64,13 @@ class Category
         ];
     }
 
+    /**
+     * Handles deletion of categories, redirects to list
+     */
+
+    public function deleteSubmit()
+    {
+        $this->categoryTable->delete('id', $_POST['id']);
+        header('location: /category/list');
+    }
 }
