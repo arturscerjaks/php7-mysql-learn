@@ -11,7 +11,8 @@ class Authentication
     private $usernameColumn;
     private $passwordColumn;
 
-    /**Creates instance of Authentication class and starts session.
+    /**
+     * Creates instance of Authentication class and starts session.
      * 
      * 
      * @param DatabaseTable $users is table where user details are found
@@ -28,7 +29,8 @@ class Authentication
         session_start();
     }
 
-    /**Tries to log in user with credentials
+    /**
+     * Tries to log in user with credentials
      * 
      * 
      * @param string $username is checked if in `$this->usernameColumn`
@@ -40,11 +42,11 @@ class Authentication
     {
         $user = $this->users->find($this->usernameColumn, strtolower($username));
 
-        if (!empty($user) && password_verify($password, $user[0][$this->passwordColumn])) {
+        if (!empty($user) && password_verify($password, $user[0]->{$this->passwordColumn})) {
             session_regenerate_id();
 
             $_SESSION['username'] = $username;
-            $_SESSION['password'] = $user[0][$this->passwordColumn];
+            $_SESSION['password'] = $user[0]->{$this->passwordColumn};
 
             return true;
         } else {
@@ -52,7 +54,8 @@ class Authentication
         }
     }
 
-    /**Checks whether user is logged in.
+    /**
+     * Checks whether user is logged in.
      * 
      * 
      * Returns true if an user is found in $_SESSION with username in DB's `$this->usernameColumn`
@@ -67,14 +70,15 @@ class Authentication
 
         $user = $this->users->find($this->usernameColumn, strtolower($_SESSION['username']));
 
-        if (!empty($user) && $user[0][$this->passwordColumn] === $_SESSION['password']) {
+        if (!empty($user) && $user[0]->{$this->passwordColumn} === $_SESSION['password']) {
             return true;
         } else {
             return false;
         }
     }
 
-    /**Logs out current user, regens session id*/
+    /**
+     * Logs out current user, regens session id*/
 
     public function logout()
     {
@@ -83,7 +87,8 @@ class Authentication
         session_regenerate_id();
     }
 
-    /**Finds current user's row in DB's user table.
+    /**
+     * Finds current user's row in DB's user table.
      * 
      * 
      * Returns all rows of `$this->users` where `$this->usernameColumn`
