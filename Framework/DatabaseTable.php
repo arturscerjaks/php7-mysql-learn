@@ -69,9 +69,10 @@ class DatabaseTable
      * 
      * 
      * @param array $values
+     * @return string id of last inserted row
      */
 
-    private function insert($values): void
+    private function insert($values): string
     {
         $query = 'INSERT INTO `' . $this->table . '` (';
 
@@ -92,6 +93,8 @@ class DatabaseTable
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($values);
+
+        return $this->pdo->lastInsertId();
     }
 
     /**
@@ -189,7 +192,9 @@ class DatabaseTable
             if (empty($record[$this->primaryKey])) {
                 unset($record[$this->primaryKey]);
             }
-            $this->insert($record);
+            $insertId = $this->insert($record);
+
+            $entity->{$this->primaryKey} = $insertId;
         } catch (\PDOException $e) {
             $this->update($record);
         }
