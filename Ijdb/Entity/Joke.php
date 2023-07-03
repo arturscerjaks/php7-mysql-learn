@@ -5,11 +5,12 @@ namespace Ijdb\Entity;
 use Framework\DatabaseTable;
 
 class Joke {
-    public int $id;
-    public int $authorid;
-    public string $jokedate;
-    public string $joketext;
+    public ?int $id;
+    public ?int $authorid;
+    public ?string $jokedate;
+    public ?string $joketext;
     private DatabaseTable $authorTable;
+    private ?object $author;
 
     /**
      * Creates instance of Joke class.
@@ -31,6 +32,10 @@ class Joke {
      * Returns Author object where author's id is `$this->authorid`*/
 
     public function getAuthor(): object {
+        if (empty($this->author)) {
+            $this->author = $this->authorTable->find('id', $this->authorid)[0];
+        }
+
         return $this->authorTable->find('id', $this->authorid)[0];
     }
 }
