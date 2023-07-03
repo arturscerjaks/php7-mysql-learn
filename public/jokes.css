@@ -93,6 +93,15 @@ input[type="submit"] {
   clear: both;
   font-size: 1em;
 }
+input[type="checkbox"] {
+  float: left;
+  clear: left;
+  width: auto;
+  margin-right: 10px;
+}
+input[type="checkbox"] + label {
+  clear: right;
+}
 
 form {
   overflow: auto;
@@ -124,4 +133,8 @@ blockquote form {
 }
 .errors ul {
   margin-left: 1em;
+}
+
+form p {
+  clear: both;
 }
