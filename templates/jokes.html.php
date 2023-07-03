@@ -10,7 +10,7 @@
                                     'UTF-8'
                                 ); ?>"><?php
                                         echo htmlspecialchars(
-                                            $joke->name,
+                                            $joke->getAuthor()->name,
                                             ENT_QUOTES,
                                             'UTF-8'
                                         ); ?></a>
