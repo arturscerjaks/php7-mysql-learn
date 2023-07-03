@@ -44,15 +44,15 @@ class Joke
 
         $jokes = [];
         foreach ($result as $joke) {
-            $author = $this->authorTable->find('id', $joke['authorid'])[0];
+            $author = $this->authorTable->find('id', $joke->authorid)[0];
 
             $jokes[] = [
-                'id' => $joke['id'],
-                'joketext' => $joke['joketext'],
-                'jokedate' => $joke['jokedate'],
-                'name' => $author['name'],
-                'email' => $author['email'],
-                'authorid' => $author['id']
+                'id' => $joke->id,
+                'joketext' => $joke->joketext,
+                'jokedate' => $joke->jokedate,
+                'name' => $author->name,
+                'email' => $author->email,
+                'authorid' => $author->id
             ];
         }
 
@@ -68,7 +68,7 @@ class Joke
             'variables' => [
                 'totalJokes' => $totalJokes,
                 'jokes' => $jokes,
-                'userId' => $user['id'] ?? null
+                'userId' => $user->id ?? null
             ]
         ];
     }
@@ -95,7 +95,7 @@ class Joke
 
         $joke = $this->jokeTable->find('id', $_POST['id'])[0];
 
-        if ($joke['authorid'] != $author['id']) {
+        if ($joke->authorid != $author->id) {
             return;
         }
 
@@ -154,7 +154,7 @@ class Joke
             'title' => $title,
             'variables' => [
                 'joke' => $joke ?? null,
-                'userId' => $author['id'] ?? null
+                'userId' => $author->id ?? null
             ]
         ];
     }
