@@ -11,6 +11,7 @@ class Joke {
     public ?string $joketext;
     private DatabaseTable $authorTable;
     private ?object $author;
+    private DatabaseTable $jokeCategoryTable;
 
     /**
      * Creates instance of Joke class.
@@ -23,9 +24,10 @@ class Joke {
      * @var string|null $this->joketext
     */
 
-    public function __construct($authorTable)
+    public function __construct($authorTable, $jokeCategoryTable)
     {
         $this->authorTable = $authorTable;
+        $this->jokeCategoryTable = $jokeCategoryTable;
     }
 
     /**
@@ -37,5 +39,11 @@ class Joke {
         }
 
         return $this->authorTable->find('id', $this->authorid)[0];
+    }
+
+    public function addCategory($categoryId) {
+        $jokeCat = ['jokeId' => $this->id, 'categoryId' => $categoryId];
+
+        $this->jokeCategoryTable->save($jokeCat);
     }
 }
