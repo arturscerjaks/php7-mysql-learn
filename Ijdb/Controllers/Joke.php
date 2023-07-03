@@ -40,31 +40,14 @@ class Joke
 
     public function list()
     {
-        $result = $this->jokeTable->findAll();
-
-        $jokes = [];
-        foreach ($result as $joke) {
-            $author = $this->authorTable->find('id', $joke->authorid)[0];
-
-            $jokes[] = [
-                'id' => $joke->id,
-                'joketext' => $joke->joketext,
-                'jokedate' => $joke->jokedate,
-                'name' => $author->name,
-                'email' => $author->email,
-                'authorid' => $author->id
-            ];
-        }
-
-        $title = 'Joke list';
-
-        $totalJokes = $this->jokeTable->totalRows();
+        $jokes = $this->jokeTable->findAll();
 
         $user = $this->authentication->getUser();
+        $totalJokes = $this->jokeTable->totalRows();
 
         return [
             'template' => 'jokes.html.php',
-            'title' => $title,
+            'title' => 'Joke list',
             'variables' => [
                 'totalJokes' => $totalJokes,
                 'jokes' => $jokes,
@@ -112,7 +95,7 @@ class Joke
 
         if (!empty($id)) {
             $joke = $this->jokeTable->find('id', $id)[0];
-            
+
             if ($joke->authorid != $author->id) {
                 return;
             }
