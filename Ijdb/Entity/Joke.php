@@ -30,7 +30,7 @@ class Joke {
     /**
      * Returns Author object where author's id is `$this->authorid`*/
 
-    public function getAuthor() {
+    public function getAuthor(): object {
         return $this->authorTable->find('id', $this->authorid)[0];
     }
 }
