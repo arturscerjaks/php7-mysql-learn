@@ -5,7 +5,7 @@
 namespace Ijdb;
 
 use Framework\{Authentication, Website, DatabaseTable};
-use Ijdb\Controllers\{Joke, Author, Login};
+use Ijdb\Controllers\{Joke, Author, Category, Login};
 use \PDO;
 
 class IjdbRoutes implements Website
@@ -16,6 +16,7 @@ class IjdbRoutes implements Website
     private $pdo;
     private ?DatabaseTable $jokeTable;
     private ?DatabaseTable $authorTable;
+    private ?DatabaseTable $categoryTable;
     private Authentication $authentication;
 
     public function __construct()
@@ -27,6 +28,7 @@ class IjdbRoutes implements Website
         );
         $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable]);
         $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
+        $this->categoryTable = new DatabaseTable($this->pdo, 'category', 'id');
         $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
 
@@ -35,9 +37,17 @@ class IjdbRoutes implements Website
         return 'joke/home';
     }
 
+    /**
+     * Creates instance of necessary controller
+     * 
+     * 
+     * Upon creating a new controller, it must be added in here
+     * @param string $controllerName 
+     * @return ?object if user uses correct first part of route, else null
+     */
+
     public function getController(string $controllerName): ?object
     {
-
 
         if ($controllerName === 'joke') {
             $controller = new Joke($this->jokeTable, $this->authorTable, $this->authentication);
@@ -45,12 +55,23 @@ class IjdbRoutes implements Website
             $controller = new Author($this->authorTable);
         } else if ($controllerName === 'login') {
             $controller = new Login($this->authentication);
+        } else if ($controllerName === 'category') {
+            $controller = new Category($this->categoryTable);
         } else {
             $controller = null;
         }
 
         return $controller;
     }
+
+    /**
+     * Checks whether a page ('controller/action') needs user to be logged in
+     * 
+     * 
+     * @param string $uri Universal Resource Identifier
+     * @var string[] $restrictedPages contains list of restricted routes
+     * @return ?string
+     */
 
     public function checkLogin(string $uri): ?string
     {
@@ -63,6 +84,10 @@ class IjdbRoutes implements Website
 
         return $uri;
     }
+
+    /**
+     * Gets 'loggedIn' status from authentication object
+     */
 
     public function getLayoutVariables(): array
     {
