@@ -25,7 +25,7 @@ class IjdbRoutes implements Website
             'ijdbuser',
             'mypassword'
         );
-        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Author', [&$this->authorTable]);
+        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable]);
         $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
         $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
