@@ -30,6 +30,7 @@ class Category
 
         return [
             'template' => 'editcategory.html.php',
+            'title' => 'Enter Joke Category',
             'variables' => [
                 'category' => $category ?? null
             ]
