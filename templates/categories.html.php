@@ -9,6 +9,6 @@
             <input type="hidden" name="id" value="<?= $category->id ?>">
             <input type="submit" value="Delete">
         </form>
-        </p>
     </blockquote>
+    </p>
 <?php endforeach; ?>
