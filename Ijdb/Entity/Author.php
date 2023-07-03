@@ -5,10 +5,10 @@ namespace Ijdb\Entity;
 use Framework\DatabaseTable;
 
 class Author {
-    public $id;
-    public $name;
-    public $email;
-    public $password;
+    public ?int $id;
+    public ?string $name;
+    public ?string $email;
+    public ?string $password;
     private DatabaseTable $jokeTable;
 
     /**
