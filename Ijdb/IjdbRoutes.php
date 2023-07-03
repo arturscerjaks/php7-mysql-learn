@@ -50,7 +50,7 @@ class IjdbRoutes implements Website
     {
 
         $controllers = [
-            'joke' => new Joke($this->jokeTable, $this->authorTable, $this->authentication),
+            'joke' => new Joke($this->jokeTable, $this->authorTable, $this->categoryTable, $this->authentication),
             'author' => new Author($this->authorTable),
             'login' => new Login($this->authentication),
             'category' => new Category($this->categoryTable)

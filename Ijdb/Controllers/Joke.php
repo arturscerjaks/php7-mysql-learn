@@ -14,6 +14,7 @@ class Joke
     private $authorTable;
     private $jokeTable;
     private $authentication;
+    private $categoryTable;
 
     /**
      * Constructs instance of JokeController with class variables
@@ -21,14 +22,16 @@ class Joke
      * 
      * @param DatabaseTable $jokeTable
      * @param DatabaseTable $authorTable
+     * @param DatabaseTable $categoryTable
      * @param Authentication $authentication
      */
 
-    public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable, Authentication $authentication)
+    public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable, DatabaseTable $categoryTable, Authentication $authentication)
     {
         $this->jokeTable = $jokeTable;
         $this->authorTable = $authorTable;
         $this->authentication = $authentication;
+        $this->categoryTable = $categoryTable;
     }
 
     /**
@@ -131,13 +134,15 @@ class Joke
         $title = 'Edit joke';
 
         $author = $this->authentication->getUser();
+        $categories = $this->categoryTable->findAll();
 
         return [
             'template' => 'editjoke.html.php',
             'title' => $title,
             'variables' => [
                 'joke' => $joke ?? null,
-                'userId' => $author->id ?? null
+                'userId' => $author->id ?? null,
+                'categories' => $categories
             ]
         ];
     }
