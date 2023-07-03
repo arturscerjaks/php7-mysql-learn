@@ -5,10 +5,10 @@ namespace Ijdb\Entity;
 use Framework\DatabaseTable;
 
 class Author {
-    public int $id;
-    public string $name;
-    public string $email;
-    public string $password;
+    public $id;
+    public $name;
+    public $email;
+    public $password;
     private DatabaseTable $jokeTable;
 
     /**
@@ -16,10 +16,10 @@ class Author {
      * 
      * 
      * Besides jokeTable param, there are 4 public initially unset variables (with var tag)
-     * @var int $this->id
-     * @var string $this->name
-     * @var string $this->email
-     * @var string $this->password
+     * @var int|null $this->id
+     * @var string|null $this->name
+     * @var string|null $this->email
+     * @var string|null $this->password
     */
 
     public function __construct(DatabaseTable $jokeTable)
