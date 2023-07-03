@@ -36,4 +36,19 @@ class Category
             ]
         ];
     }
+
+    /**
+     * Saves submitted category to DB's `category` table
+     * 
+     * 
+     * After that redirects to /category/list
+     */
+
+    public function editSubmit()
+    {
+        $category = $_POST['category'];
+        $this->categoryTable->save($category);
+
+        header('location: /category/list');
+    }
 }
