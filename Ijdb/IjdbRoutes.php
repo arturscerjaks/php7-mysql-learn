@@ -49,19 +49,14 @@ class IjdbRoutes implements Website
     public function getController(string $controllerName): ?object
     {
 
-        if ($controllerName === 'joke') {
-            $controller = new Joke($this->jokeTable, $this->authorTable, $this->authentication);
-        } else if ($controllerName === 'author') {
-            $controller = new Author($this->authorTable);
-        } else if ($controllerName === 'login') {
-            $controller = new Login($this->authentication);
-        } else if ($controllerName === 'category') {
-            $controller = new Category($this->categoryTable);
-        } else {
-            $controller = null;
-        }
+        $controllers = [
+            'joke' => new Joke($this->jokeTable, $this->authorTable, $this->authentication),
+            'author' => new Author($this->authorTable),
+            'login' => new Login($this->authentication),
+            'category' => new Category($this->categoryTable)
+        ];
 
-        return $controller;
+        return $controllers[$controllerName] ?? null;
     }
 
     /**
