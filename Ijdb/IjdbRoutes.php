@@ -14,9 +14,9 @@ class IjdbRoutes implements Website
     /**@var PDO $pdo Joke database connection*/
 
     private $pdo;
-    private $jokeTable;
-    private $authorTable;
-    private $authentication;
+    private ?DatabaseTable $jokeTable;
+    private ?DatabaseTable $authorTable;
+    private Authentication $authentication;
 
     public function __construct()
     {
@@ -25,8 +25,8 @@ class IjdbRoutes implements Website
             'ijdbuser',
             'mypassword'
         );
-        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id');
-        $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [$this->jokeTable]);
+        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Author', [&$this->authorTable]);
+        $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
         $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
 
