@@ -41,6 +41,10 @@ class Joke {
         return $this->authorTable->find('id', $this->authorid)[0];
     }
 
+    /**
+     * Adds category to a joke
+     */
+
     public function addCategory($categoryId) {
         $jokeCat = ['jokeId' => $this->id, 'categoryId' => $categoryId];
 
