@@ -18,7 +18,7 @@ class DatabaseTable
      * @param \PDO $pdo
      * @param string $table name of DB table
      * @param string $primaryKey primary key of said DB table
-     * @param string $className object class for find() & findAll() data storage
+     * @param string $className object class for return type
      * @param array $constructorArgs necessary for chosen object class
      */
 
@@ -175,12 +175,16 @@ class DatabaseTable
      * Tries to insert() `$record` into `$this->table` based on `$this->primaryKey`, 
      * will update() instead if `$this->primaryKey` is duplicate.
      * 
+     * 
      * @param array $record
+     * @return object specified in $this->className
      */
 
 
-    function save($record): void
+    function save($record): object
     {
+        $entity = new $this->className(...$this->constructorArgs);
+      
         try {
             if (empty($record[$this->primaryKey])) {
                 unset($record[$this->primaryKey]);
@@ -189,5 +193,16 @@ class DatabaseTable
         } catch (\PDOException $e) {
             $this->update($record);
         }
+
+        foreach ($record as $key => $value) {
+            if (!empty($value)) {
+                if ($value instanceof \DateTime) {
+                    $value = $value->format('Y-m-d H:i:s');
+                }
+                $entity->$key = $value;
+            }
+        }
+
+        return $entity;
     }
 }
