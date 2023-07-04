@@ -11,7 +11,6 @@ use \PDO;
 class IjdbRoutes implements Website
 {
 
-    private $pdo;
     private ?DatabaseTable $jokeTable;
     private ?DatabaseTable $authorTable;
     private ?DatabaseTable $categoryTable;
