@@ -41,9 +41,9 @@ class Author {
      * Changes instance's `$this->id` to `$joke['authorid']`
     */
 
-    public function addJoke(array $joke): void {
+    public function addJoke(array $joke): object {
         $joke['authorid'] = $this->id;
 
-        $this->jokeTable->save($joke);
+        return $this->jokeTable->save($joke);
     }
 }
