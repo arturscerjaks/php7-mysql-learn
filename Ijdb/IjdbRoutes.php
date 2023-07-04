@@ -6,7 +6,6 @@ namespace Ijdb;
 
 use Framework\{Authentication, Website, DatabaseTable};
 use Ijdb\Controllers\{Joke, Author, Category, Login};
-use \PDO;
 
 class IjdbRoutes implements Website
 {
