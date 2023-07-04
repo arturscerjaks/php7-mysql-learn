@@ -27,15 +27,19 @@ class IjdbRoutes implements Website
 
     public function __construct()
     {
-        $this->pdo = new \PDO(
+        $pdo = new \PDO(
             'mysql:host=mysql;dbname=ijdb;charset=utf8mb4',
             'ijdbuser',
             'mypassword'
         );
-        $this->jokeTable = new DatabaseTable($this->pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable, &$this->jokeCategoryTable]);
-        $this->authorTable = new DatabaseTable($this->pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
-        $this->categoryTable = new DatabaseTable($this->pdo, 'category', 'id');
-        $this->jokeCategoryTable = new DatabaseTable($this->pdo, 'joke_category', 'categoryId');
+        $this->jokeTable = new DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorTable, &$this->jokeCategoryTable]);
+
+        $this->authorTable = new DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
+
+        $this->categoryTable = new DatabaseTable($pdo, 'category', 'id');
+
+        $this->jokeCategoryTable = new DatabaseTable($pdo, 'joke_category', 'categoryId');
+
         $this->authentication = new Authentication($this->authorTable, 'email', 'password');
     }
 
