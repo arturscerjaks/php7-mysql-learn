@@ -35,15 +35,21 @@ class Joke
     }
 
     /**
-     * Finds all rows in joke table, adds info from author table to each joke.
-     * Returns info for template to show list
+     * Finds and returns all `joke` table entries.
      * 
+     * 
+     * @param int $categoryId if supplied returns specific category's jokes
      * @return mixed[]
      */
 
-    public function list()
+    public function list($categoryId = null)
     {
-        $jokes = $this->jokeTable->findAll();
+        if (isset($categoryId)) {
+            $category = $this->categoryTable->find('id', $categoryId)[0];
+            $jokes = $category->getJokes();
+        } else {
+            $jokes = $this->jokeTable->findAll();
+        }
 
         $user = $this->authentication->getUser();
         $totalJokes = $this->jokeTable->totalRows();
