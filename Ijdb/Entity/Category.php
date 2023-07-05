@@ -11,7 +11,7 @@ class Category
     public $id;
     /**@var string $name of joke category's name*/
     public $name;
-    
+
     private $jokeTable;
     private $jokeCategoryTable;
 
@@ -29,7 +29,7 @@ class Category
      * Gets all jokes in category where `$this->id` is categoryId in DB's `joke_category`
      * 
      * 
-     * @return array of objects specified in jokeTable's constructor
+     * @return array of objects specified in jokeCategoryTable's constructor
      */
 
     public function getJokes(): array
