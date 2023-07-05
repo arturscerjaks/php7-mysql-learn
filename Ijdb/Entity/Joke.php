@@ -4,7 +4,8 @@ namespace Ijdb\Entity;
 
 use Framework\DatabaseTable;
 
-class Joke {
+class Joke
+{
     public ?int $id;
     public ?int $authorid;
     public ?string $jokedate;
@@ -22,7 +23,7 @@ class Joke {
      * @var string|null $this->authorid
      * @var string|null $this->jokedate
      * @var string|null $this->joketext
-    */
+     */
 
     public function __construct($authorTable, $jokeCategoryTable)
     {
@@ -33,7 +34,8 @@ class Joke {
     /**
      * Returns Author object where author's id is `$this->authorid`*/
 
-    public function getAuthor(): object {
+    public function getAuthor(): object
+    {
         if (empty($this->author)) {
             $this->author = $this->authorTable->find('id', $this->authorid)[0];
         }
@@ -45,7 +47,8 @@ class Joke {
      * Adds category to a joke
      */
 
-    public function addCategory($categoryId) {
+    public function addCategory($categoryId)
+    {
         $jokeCat = ['jokeId' => $this->id, 'categoryId' => $categoryId];
 
         $this->jokeCategoryTable->save($jokeCat);
@@ -55,13 +58,23 @@ class Joke {
      * Loops through all associated categories for a joke
      */
 
-    public function hasCategory($categoryId) {
+    public function hasCategory($categoryId)
+    {
         $jokeCategories = $this->jokeCategoryTable->find('jokeId', $this->id);
-        
+
         foreach ($jokeCategories as $jokeCategory) {
             if ($jokeCategory->categoryId == $categoryId) {
                 return true;
             }
         }
+    }
+
+    /**
+     * Clears existing categories of a joke
+     */
+
+    public function clearCategories()
+    {
+        $this->jokeCategoryTable->delete('jokeId', $this->id);
     }
 }
