@@ -34,7 +34,7 @@ class IjdbRoutes implements Website
 
         $this->authorTable = new DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokeTable]);
 
-        $this->categoryTable = new DatabaseTable($pdo, 'category', 'id');
+        $this->categoryTable = new DatabaseTable($pdo, 'category', 'id', '\Ijdb\Entity\Category', [&$this->jokeTable, &$this->jokeCategoryTable]);
 
         $this->jokeCategoryTable = new DatabaseTable($pdo, 'joke_category', 'categoryId');
 
