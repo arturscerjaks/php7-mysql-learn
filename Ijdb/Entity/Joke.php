@@ -50,4 +50,18 @@ class Joke {
 
         $this->jokeCategoryTable->save($jokeCat);
     }
+
+    /**
+     * Loops through all associated categories for a joke
+     */
+
+    public function hasCategory($categoryId) {
+        $jokeCategories = $this->jokeCategoryTable->find('jokeId', $this->id);
+        
+        foreach ($jokeCategories as $jokeCategory) {
+            if ($jokeCategory->categoryId == $categoryId) {
+                return true;
+            }
+        }
+    }
 }
