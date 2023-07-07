@@ -101,4 +101,27 @@ class Author
             ]
         ];
     }
+
+    /**
+     * Lets edit permissions of author specified by id
+     * 
+     * @param ?int $id author's id
+     */
+
+    public function permissions(?int $id = null): array
+    {
+        $author = $this->authorTable->find('id', $id)[0];
+
+        $reflected = new \ReflectionClass('\Ijdb\Entity\Author');
+        $constants = $reflected->getConstants();
+
+        return [
+            'template' => 'permissions.html.php',
+            'title' => 'Edit Permissions',
+            'variables' => [
+                'author' => $author,
+                'permissions' => $constants
+            ]
+        ];
+    }
 }
