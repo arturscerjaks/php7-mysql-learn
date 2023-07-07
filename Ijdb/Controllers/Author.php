@@ -68,7 +68,7 @@ class Author
         if (empty($errors)) {
             // Hash the password before saving
             $author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
-            
+
             $this->authorTable->save($author);
             header('Location: /author/success');
         } else {
@@ -83,5 +83,22 @@ class Author
                 ]
             ];
         }
+    }
+
+    /**
+     * Lists all authors in DB's `author` table
+     */
+
+    public function list(): array
+    {
+        $authors = $this->authorTable->findAll();
+
+        return [
+            'template' => 'authorlist.html.php',
+            'title' => 'Author List',
+            'variables' => [
+                'authors' => $authors
+            ]
+        ];
     }
 }
