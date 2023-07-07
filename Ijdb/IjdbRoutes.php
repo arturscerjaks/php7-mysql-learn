@@ -69,9 +69,11 @@ class IjdbRoutes implements Website
     }
 
     /**
-     * Checks whether a page ('controller/action') needs user to be logged in
+     * Checks whether an user has sufficient permissions to access page
      * 
      * 
+     * If a page is restricted by any necessary permission,
+     * then an user needs to be logged in to view it
      * @param string $uri Universal Resource Identifier
      * @var string[] $restrictedPages contains list of restricted routes
      * @return ?string
@@ -79,11 +81,16 @@ class IjdbRoutes implements Website
 
     public function checkLogin(string $uri): ?string
     {
-        $restrictedPages = ['joke/edit', 'joke/delete'];
+        $restrictedPages = ['category/list' => \Ijdb\Entity\Author::LIST_CATEGORIES];
 
-        if (in_array($uri, $restrictedPages) && !$this->authentication->isLoggedIn()) {
-            header('location: /login/login');
-            exit();
+        if (isset($restrictedPages[$uri])) {
+            if (
+                !$this->authentication->isLoggedIn()
+                || !$this->authentication->getUser()->hasPermission($restrictedPages[$uri])
+            ) {
+                header('location: /login/login');
+                exit();
+            }
         }
 
         return $uri;
