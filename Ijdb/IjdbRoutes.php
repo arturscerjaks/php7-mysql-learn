@@ -81,7 +81,13 @@ class IjdbRoutes implements Website
 
     public function checkLogin(string $uri): ?string
     {
-        $restrictedPages = ['category/list' => \Ijdb\Entity\Author::LIST_CATEGORIES];
+        $restrictedPages = [
+            'category/list' => \Ijdb\Entity\Author::LIST_CATEGORIES,
+            'category/delete' => \Ijdb\Entity\Author::DELETE_CATEGORY,
+            'category/edit' => \Ijdb\Entity\Author::EDIT_CATEGORY,
+            'author/permissions' => \Ijdb\Entity\Author::EDIT_USER_ACCESS,
+            'author/list' => \Ijdb\Entity\Author::EDIT_USER_ACCESS
+        ];
 
         if (isset($restrictedPages[$uri])) {
             if (
