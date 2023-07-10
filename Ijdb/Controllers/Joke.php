@@ -60,7 +60,7 @@ class Joke
             'variables' => [
                 'totalJokes' => $totalJokes,
                 'jokes' => $jokes,
-                'userId' => $user->id ?? null,
+                'user' => $user,
                 'categories' => $this->categoryTable->findAll()
             ]
         ];

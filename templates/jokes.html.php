@@ -29,15 +29,19 @@
                         echo $jokedate->format('jS F Y');
                         ?>)
 
-                    <?php if (empty($joke) || $userId == $joke->authorid) : ?>
-                        <a href="/joke/edit/<?= $joke->id ?>">Edit</a>
-                </p>
+                    <?php if ($user) : ?>
+                        <?php if (empty($joke) || $user->id == $joke->authorid || $user->hasPermission(\Ijdb\Entity\Author::EDIT_JOKE)
+                        ) : ?>
+                            <a href="/joke/edit/<?= $joke->id ?>">Edit</a>
+                        <?php endif; ?>
+                        <?php if ($user->id == $joke->authorid || $user->hasPermission(\Ijdb\Entity\Author::DELETE_JOKE)
+                        ) : ?>
                 <form action="/joke/delete" method="post">
                     <input type="hidden" name="id" value="<?= $joke->id ?>">
                     <input type="submit" value="Delete">
                 </form>
             <?php endif; ?>
-
+        <?php endif; ?>
             </blockquote>
         <?php endforeach; ?>
     </div>
