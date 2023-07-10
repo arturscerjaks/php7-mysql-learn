@@ -100,7 +100,7 @@ class Authentication
         if ($this->isLoggedIn()) {
             return $this->users->find($this->usernameColumn, strtolower($_SESSION['username']))[0];
         } else {
-            return false;
+            return null;
         }
     }
 }
