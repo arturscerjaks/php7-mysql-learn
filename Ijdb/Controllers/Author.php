@@ -105,10 +105,12 @@ class Author
     /**
      * Lets edit permissions of author specified by id
      * 
-     * @param ?int $id author's id
+     * 
+     * Gets permission bitwise values through Author entity
+     * @param ?string $id author's id
      */
 
-    public function permissions(?int $id = null): array
+    public function permissions(?string $id = null): array
     {
         $author = $this->authorTable->find('id', $id)[0];
 
@@ -124,4 +126,16 @@ class Author
             ]
         ];
     }
+
+    public function permissionsSubmit($id = null) {
+        $author = [
+            'id' => $_POST['id'],
+            'permissions' => array_sum($_POST['permissions'] ?? [])
+        ];
+
+        $this->authorTable->save($author);
+
+        header('location: /author/list');
+    }
+
 }
