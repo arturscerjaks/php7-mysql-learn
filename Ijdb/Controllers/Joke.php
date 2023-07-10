@@ -80,15 +80,20 @@ class Joke
         return ['template' => 'home.html.php', 'title' => $title];
     }
 
-    /**Handles joke deletion*/
+    /**
+     * Handles joke deletion
+     * 
+     * 
+     * Returns prematurely, if user isn't author or doesn't have permission to delete others' jokes
+    */
 
     public function deleteSubmit()
     {
         $author = $this->authentication->getUser();
 
-        $joke = $this->jokeTable->find('id', $_POST['id'])[0];
+        $joke = $this->jokeTable->find('id', $_POST['id']);
 
-        if ($joke->authorid != $author->id) {
+        if ($joke->authorid != $author->id && !$author->hasPermission(\Ijdb\Entity\Author::DELETE_JOKE)) {
             return;
         }
 
@@ -144,17 +149,15 @@ class Joke
             $joke = $this->jokeTable->find('id', $id)[0] ?? null;
         }
 
-        $title = 'Edit joke';
-
         $author = $this->authentication->getUser();
         $categories = $this->categoryTable->findAll();
 
         return [
             'template' => 'editjoke.html.php',
-            'title' => $title,
+            'title' => 'Edit joke',
             'variables' => [
                 'joke' => $joke ?? null,
-                'userId' => $author->id ?? null,
+                'user' => $author,
                 'categories' => $categories
             ]
         ];
