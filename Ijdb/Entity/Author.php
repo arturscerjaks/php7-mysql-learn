@@ -18,6 +18,7 @@ class Author
     public ?string $name;
     public ?string $email;
     public ?string $password;
+    public ?string $permissions;
     private DatabaseTable $jokeTable;
 
     /**
@@ -59,16 +60,15 @@ class Author
     }
 
     /**
-     * Checks whether an user has permission
+     * Checks whether an user has permission with bitwise AND
+     * 
+     * 
+     * Looks at DB's `author` table's `permissions` row
+     * @param int $permission permission to be checked for
      */
 
-    public function hasPermission(int $permission) {
-        /*$permissions = $this->userPermissionTable->find('authorId', $this->id);
-
-        foreach ($permissions as $permission) {
-            if ($permission->permissions == $permission) {
-                return true;
-            }
-        }*/
+    public function hasPermission(int $permission): int
+    {
+        return $this->permissions & $permission;
     }
 }
