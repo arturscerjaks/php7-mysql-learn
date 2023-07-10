@@ -9,10 +9,10 @@ class Author
 
     const EDIT_JOKE = 1;
     const DELETE_JOKE = 2;
-    const LIST_CATEGORIES = 3;
-    const EDIT_CATEGORY = 4;
-    const DELETE_CATEGORY = 5;
-    const EDIT_USER_ACCESS = 6;
+    const LIST_CATEGORIES = 4;
+    const EDIT_CATEGORY = 8;
+    const DELETE_CATEGORY = 16;
+    const EDIT_USER_ACCESS = 32;
 
     public ?int $id;
     public ?string $name;
@@ -63,6 +63,12 @@ class Author
      */
 
     public function hasPermission(int $permission) {
+        /*$permissions = $this->userPermissionTable->find('authorId', $this->id);
 
+        foreach ($permissions as $permission) {
+            if ($permission->permissions == $permission) {
+                return true;
+            }
+        }*/
     }
 }
