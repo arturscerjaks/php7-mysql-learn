@@ -1,4 +1,4 @@
-<?php if (empty($joke->id) || $user->id == $joke->authorId || $user->hasPermission(\Ijdb\Entity\Author::EDIT_JOKE)) : ?>
+<?php if (empty($joke->id) || $user->id == $joke->authorid || $user->hasPermission(\Ijdb\Entity\Author::EDIT_JOKE)) : ?>
     <form action="" method="post">
         <input type="hidden" name="joke[id]" value="<?= $joke->id ?? '' ?>">
         <label for="joketext">Type your joke here:</label>
