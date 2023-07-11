@@ -48,7 +48,7 @@ class Joke
             $category = $this->categoryTable->find('id', $categoryId)[0];
             $jokes = $category->getJokes();
         } else {
-            $jokes = $this->jokeTable->findAll();
+            $jokes = $this->jokeTable->findAll('jokedate DESC');
         }
 
         $user = $this->authentication->getUser();
