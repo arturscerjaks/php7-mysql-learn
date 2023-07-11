@@ -30,8 +30,8 @@ class Markdown
         $text = preg_replace('/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $text);
 
         // emphasis (italic)
-        $text = preg_replace('/_([^_]+)_/', '<em>$1<em>', $text);
-        $text = preg_replace('/\*([^\*]+)\*/', '<em>$1<em>', $text);
+        $text = preg_replace('/_([^_]+)_/', '<em>$1</em>', $text);
+        $text = preg_replace('/\*([^\*]+)\*/', '<em>$1</em>', $text);
         
         // Convert Windows (\r\n) to Unix (\n)
         $text = str_replace("\r\n", "\n", $text);
