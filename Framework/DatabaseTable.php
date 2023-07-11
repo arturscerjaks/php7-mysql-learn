@@ -47,17 +47,22 @@ class DatabaseTable
      * 
      * 
      * @param string $field
-     * @param string|int $value
+     * @param string $value
+     * @param ?string $orderBy name of field to order by, e.g., '\`date\` DESC'
      * @return object specified in DatabaseTable instance constructor
      */
 
-    function find($field, $value)
+    function find($field, $value, $orderBy = null)
     {
         $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $field . '` = :value';
 
         $values = [
             'value' => $value
         ];
+
+        if ($orderBy != null) {
+            $query .= ' ORDER BY ' . $orderBy;
+        }
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($values);
