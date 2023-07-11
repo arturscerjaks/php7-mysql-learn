@@ -146,12 +146,18 @@ class DatabaseTable
      * Returns all rows of `$this->table` as an object
      * 
      * 
+     * @param string $orderBy name of field to order by, e.g., '\`date\` DESC'
      * @return object specified in DatabaseTable instance constructor
      */
 
-    function findAll()
+    function findAll($orderBy = null)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM `' . $this->table . '`');
+
+        if ($orderBy != null) {
+            $stmt .= ' ORDER BY ' . $orderBy;
+        }
+
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->className, $this->constructorArgs);
