@@ -45,6 +45,23 @@ class Category
             }
         }
 
+        usort($jokes, [$this, 'sortJokes']);
+
         return $jokes;
+    }
+
+    /**
+     * Retrieves timestamps of jokes for comparison
+     */
+
+    private function sortJokes($a, $b) {
+        $aDate = new \DateTime($a->jokedate);
+        $bDate = new \DateTime($b->jokedate);
+
+        if ($aDate->getTimestamp() == $bDate->getTimestamp()) {
+            return 0;
+        }
+
+        return $aDate->getTimestamp() > $bDate->getTimestamp() ? -1 : 1;
     }
 }
