@@ -157,12 +157,13 @@ class DatabaseTable
 
     function findAll($orderBy = null)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM `' . $this->table . '`');
+        $query = 'SELECT * FROM `' . $this->table . '`';
 
         if ($orderBy != null) {
-            $stmt .= ' ORDER BY ' . $orderBy;
+            $query .= ' ORDER BY ' . $orderBy;
         }
-
+        
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $this->className, $this->constructorArgs);
